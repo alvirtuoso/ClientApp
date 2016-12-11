@@ -1,8 +1,26 @@
+@import "variables.scss";
+
 // styles in src/style directory are applied to the whole page
 body {
-    background: #0147A7;
-    color: #fff;
+    background: $primary-color-light;
+    color:$primary-text-color;
 }
 a {
     color: #03A9F4;
 }
+
+/* Rules for sizing the icon. */
+.md-18 { font-size: 18px; }
+.md-24 { font-size: 24px; }
+.md-36 { font-size: 36px; }
+.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.md-dark { color: rgba(0, 0, 0, 0.54); }
+.md-dark .md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.md-light { color: rgba(255, 255, 255, 1); }
+.md-light .md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+.orange600 { color: #FB8C00; }

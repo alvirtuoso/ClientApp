@@ -9,6 +9,8 @@ import { AboutComponent } from './about/about.component';
 import { ApiService } from './shared';
 import { routing } from './app.routing';
 
+import {MaterializeDirective} from "angular2-materialize";
+
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
 @NgModule({
@@ -21,7 +23,8 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    MaterializeDirective
   ],
   providers: [
     ApiService
