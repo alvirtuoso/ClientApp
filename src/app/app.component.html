@@ -5,36 +5,11 @@
   </nav>
 </header>
 <main>
-  <h1>Hello from {{api.title}}!</h1>
-<form materialize class="col s12">
-  <div class="row">
-    <div class="input-field col s6">
-      <input id="first_name" type="text" class="validate">
-      <label for="first_name">First Name</label>
-    </div>
-    <div class="input-field col s6">
-        <input id="last_name" type="text" class="validate">
-        <label for="last_name">Last Name</label>
-    </div>
-  </div>
-</form>
-  <!-- Images (and assets) are parsed and loaded from within the public directory -->
-  <!--<img src="/img/angular.png">-->
-          <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
-          <li>
-            <div class="collapsible-header"><i class="material-icons md-dark">filter_drama</i>First</div>
-            <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-          </li>
-          <li>
-            <div class="collapsible-header"><i class="material-icons md-dark">place</i>Second</div>
-            <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-          </li>
-          <li>
-            <div class="collapsible-header"><i class="material-icons orange600">whatshot</i>Third</div>
-            <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-          </li>
-        </ul>
-        <a class="waves-effect waves-light btn modal-trigger">Modal</a>
+  <h1>Hello from {{apiOne.title}}!</h1>
+
+ <todo-app></todo-app>
+
+
 
   <router-outlet></router-outlet>
 </main>

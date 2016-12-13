@@ -7,11 +7,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ApiService } from './shared';
+import { TodoService } from './shared/todoService/todoService.service';
 import { routing } from './app.routing';
 
-import {MaterializeDirective} from "angular2-materialize";
+import {MaterializeDirective} from 'angular2-materialize';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
+import { TodoComponent } from './todo/todo.component';
+
 
 @NgModule({
   imports: [
@@ -24,10 +27,12 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     AppComponent,
     HomeComponent,
     AboutComponent,
-    MaterializeDirective
-  ],
+    MaterializeDirective,
+    TodoComponent
+],
   providers: [
-    ApiService
+    ApiService,
+    TodoService
   ],
   bootstrap: [AppComponent]
 })
