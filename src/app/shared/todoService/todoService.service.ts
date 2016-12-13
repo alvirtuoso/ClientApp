@@ -1,7 +1,7 @@
 import {Observable} from "RxJS/Rx";
 import {Injectable} from '@angular/core';
 import {Todo} from '../../model/todo';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 // import 'rxjs/add/operator/map';    see src/app/vendor.ts
 // import 'rxjs/add/operator/catch';
@@ -24,13 +24,15 @@ export class TodoService {
    }
 
   // Simulate POST /todos
-  addTodo(todo: Todo): TodoService {
-    if (!todo.id) {
-      todo.id = ++this.lastId;
+   addTodo (body: Object): Observable<Todo[]> {
+        let bodyString = JSON.stringify(body); // Stringify payload
+        let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options       = new RequestOptions({ headers: headers }); // Create a request option
+
+        return this.http.post(this.todoUrl, body, options) // ...using post request
+                         .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
+                         .catch(this.handleError);
     }
-    this.todos.push(todo);
-    return this;
-  }
 
   // Simulate DELETE /todos/:id
   deleteTodoById(id: number): TodoService {
@@ -40,23 +42,27 @@ export class TodoService {
   }
 
   // Simulate PUT /todos/:id
-  updateTodoById(id: number, values: Object = {}): Todo {
-    let todo = this.getTodoById(id);
-    if (!todo) {
-      return null;
+    // Update a todo
+    updateTodo (body: Object): Observable<Todo[]> {
+        let bodyString = JSON.stringify(body); // Stringify payload
+        let headers      = new Headers({ 'Content-Type': 'application/json' });
+        let options       = new RequestOptions({ headers: headers });
+
+        return this.http.put(`${this.todoUrl}/${body['id']}`, body, options)
+                         .map((res:Response) => res.json())
+                         .catch(this.handleError);
     }
-    Object.assign(todo, values);
-    return todo;
-  }
 
-  // Simulate GET /todos
-  getAllTodos(): Todo[] {
-    return this.todos;
-  }
+    // Delete a comment
+    removeComment (id:string): Observable<Comment[]> {
+        return this.http.delete(`${this.todoUrl}/${id}`)
+                         .map(res => res.json())
+                         .catch(this.handleError);
+    }
 
-// Fetch all existing comments
-     getTodos() : Observable<Todo[]> {
 
+// Fetch all existing items
+    getTodos() : Observable<Todo[]> {
          // ...using get request
          return this.http.get(this.todoUrl)
                     .do( res => console.log('HTTP response:', res))
@@ -73,19 +79,12 @@ export class TodoService {
   }
 
   // Simulate GET /todos/:id
-  getTodoById(id: number): Todo {
-    return this.todos
-      .filter(todo => todo.id === id)
-      .pop();
+  loadTodo(id: number | string): Observable<Todo[]> {
+    return  this.http.get(`${this.todoUrl}/todos/${id}`)
+      .map((resp: Response) => resp.json())
+      .catch(this.handleError);
   }
 
-  // Toggle todo complete
-  toggleTodoComplete(todo: Todo){
-    let updatedTodo = this.updateTodoById(todo.id, {
-      complete: !todo.completed
-    });
-    return updatedTodo;
-  }
   private handleError (error: Response | any) {
     // Enhance: Use a remote logging infrastructure
     let errMsg: string;

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Todo} from '../model/todo';
 import {TodoService} from '../shared/todoService/todoService.service';
+import {Observable} from "RxJS/Rx";
 
 @Component({
   selector: 'todo-app',
@@ -12,6 +13,7 @@ export class TodoComponent implements OnInit{
 
   newTodo: Todo;
   todos: Todo[];
+  todoList: Observable<Todo[]> = null;
   errorMessage: string;
 
   constructor(private todoService: TodoService) {
@@ -27,9 +29,9 @@ export class TodoComponent implements OnInit{
 
   }
 
-  toggleTodoComplete(todo) {
-    this.todoService.toggleTodoComplete(todo);
-  }
+  // toggleTodoComplete(todo) {
+  //   this.todoService.toggleTodoComplete(todo);
+  // }
 
   removeTodo(todo) {
     this.todoService.deleteTodoById(todo.id);
@@ -40,7 +42,10 @@ export class TodoComponent implements OnInit{
                          .subscribe(
                        todos => {this.todos = todos},
                        error =>  {this.errorMessage = <any>error});
-                       console.log(this.todos);
-  }
+
+   // this.todoList = this.todoService.getTodos(); // shorter version though without error logging. subscribe & unsubscribe automatically. Use it along with async pipe in the html template
+
+}
+
 
 }
