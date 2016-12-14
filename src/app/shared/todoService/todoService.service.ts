@@ -37,20 +37,27 @@ export class TodoService {
     }
 
   // Simulate DELETE /todos/:id
-  deleteTodoById(id: number): TodoService {
-    this.todos = this.todos
-      .filter(todo => todo.id !== id);
-    return this;
-  }
+   deleteTodoById(id: number | string){
+
+        let options = new RequestOptions({
+        	headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' }) 
+        });
+
+		return this.http.delete(`${this.todoUrl}/${id}`,options)
+      .do( res => console.log('DeleteTodoById HTTP response:', res))
+			.map((res:Response) => res.json())
+			.catch(this.handleError);
+	}
 
   // Simulate PUT /todos/:id
     // Update a todo
     updateTodo (body: Object): Observable<Todo[]> {
         let bodyString = JSON.stringify(body); 
-        let headers      = new Headers({ 'Content-Type': 'application/json' });
+        let headers      = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
         let options       = new RequestOptions({ headers: headers });
 
         return this.http.put(`${this.todoUrl}/${body['id']}`, body, options)
+                        .do( res => console.log('UpdateTodo HTTP response:', res))
                          .map((res:Response) => res.json())
                          .catch(this.handleError);
     }

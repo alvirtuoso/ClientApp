@@ -1,9 +1,22 @@
   <div>
-  <label>Hero name:</label> <input #todoTitle />
-  <button (click)="add(todoTitle.value); todoTitle.value=''">
+  <label>Hero name:</label> <input #todoName />
+  <button (click)="add(todoName.value); todoName.value=''">
     Add
   </button>
 </div>
+  <div>
+  <label>Update name:</label> <input #todoTitle />
+  <button (click)="update(todoTitle.value); todoTitle.value=''">
+    Update
+  </button>
+</div>
+  <div>
+  <label>Delete:</label> <input #todoId />
+  <button (click)="delete(todoId.value); todoId.value=''">
+    Delete
+  </button>
+</div>
+
   <section>
 
           <h3>

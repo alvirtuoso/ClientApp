@@ -15,7 +15,7 @@ export class TodoComponent implements OnInit{
   todos: Todo[] = [];
   todoList: Observable<Todo[]> = null;
   errorMessage: string = '';
- 
+
   constructor(private todoService: TodoService) {
 
   }
@@ -26,6 +26,24 @@ export class TodoComponent implements OnInit{
   }
 
   add(title: string): void {
+    title = title.trim();
+    if (!title) {
+      return;
+    }
+    let todo = new Todo();
+    todo.id = 19;
+    todo.title = title;
+    todo.completed = false;
+    todo.userId = 1;
+    this.todoService.addTodo(todo)
+      .subscribe(error => (this.errorMessage = <any>error));
+  }
+
+  delete(id: number | string){
+    this.todoService.deleteTodoById(id).subscribe(error => (this.errorMessage = <any>error));
+  }
+
+  update(title: string): void {
       title = title.trim();
     if (!title) { return; }
     let todo = new Todo();
@@ -33,17 +51,14 @@ export class TodoComponent implements OnInit{
     todo.title = title;
     todo.completed = false;
     todo.userId = 1;
-    this.todoService.addTodo(todo)
-      .subscribe(resp => {console.log(resp)}, error => (this.errorMessage = <any>error));
+    this.todoService.updateTodo(todo)
+      .subscribe(error => (this.errorMessage = <any>error));
   }
-
-  // toggleTodoComplete(todo) {
-  //   this.todoService.toggleTodoComplete(todo);
-  // }
 
   removeTodo(todo) {
     this.todoService.deleteTodoById(todo.id);
   }
+  // ok
   getTodoById(id: number | string){
     this.todoService.loadTodo(id)
           .subscribe(
@@ -51,6 +66,7 @@ export class TodoComponent implements OnInit{
             error => (this.errorMessage = <any>error)
             );
   }
+  // ok
   getTodos() {
      this.todoService.getTodos()
                          .subscribe(
