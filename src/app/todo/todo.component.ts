@@ -11,22 +11,30 @@ import {Observable} from "RxJS/Rx";
 })
 export class TodoComponent implements OnInit{
 
-  newTodo: Todo;
-  todos: Todo[];
+  newTodo: Todo[]= [];
+  todos: Todo[] = [];
   todoList: Observable<Todo[]> = null;
-  errorMessage: string;
-
+  errorMessage: string = '';
+ 
   constructor(private todoService: TodoService) {
 
   }
     ngOnInit(){
      //called after the constructor and called  after the first ngOnChanges()
      this.getTodos();
+     this.getTodoById(2);
   }
 
-  addTodo() {
-    this.todoService.addTodo(this.newTodo);
-
+  add(title: string): void {
+      title = title.trim();
+    if (!title) { return; }
+    let todo = new Todo();
+    todo.id = 19;
+    todo.title = title;
+    todo.completed = false;
+    todo.userId = 1;
+    this.todoService.addTodo(todo)
+      .subscribe(resp => {console.log(resp)}, error => (this.errorMessage = <any>error));
   }
 
   // toggleTodoComplete(todo) {
@@ -36,7 +44,13 @@ export class TodoComponent implements OnInit{
   removeTodo(todo) {
     this.todoService.deleteTodoById(todo.id);
   }
-
+  getTodoById(id: number | string){
+    this.todoService.loadTodo(id)
+          .subscribe(
+            todo => {this.newTodo = todo},
+            error => (this.errorMessage = <any>error)
+            );
+  }
   getTodos() {
      this.todoService.getTodos()
                          .subscribe(

@@ -18,20 +18,22 @@ export class TodoService {
 
   result: Array<Object>;
   todoUrl = 'https://jsonplaceholder.typicode.com/todos';
-
+  
   constructor(private http: Http) {
 
    }
-
-  // Simulate POST /todos
+  
+  // Simulate POST /todos. ok
    addTodo (body: Object): Observable<Todo[]> {
-        let bodyString = JSON.stringify(body); // Stringify payload
-        let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-        let options       = new RequestOptions({ headers: headers }); // Create a request option
+        let bodyString = JSON.stringify(body); 
+        let headers      = new Headers({ 'Content-Type': 'application/json; charset=utf-8' }); 
+        let options       = new RequestOptions({ headers: headers }); 
 
-        return this.http.post(this.todoUrl, body, options) // ...using post request
-                         .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
+        return this.http.post(this.todoUrl, bodyString, options) 
+                        .do( res => console.log('addTodo HTTP response:', res))
+                         .map((res:Response) => res.json()) 
                          .catch(this.handleError);
+
     }
 
   // Simulate DELETE /todos/:id
@@ -44,7 +46,7 @@ export class TodoService {
   // Simulate PUT /todos/:id
     // Update a todo
     updateTodo (body: Object): Observable<Todo[]> {
-        let bodyString = JSON.stringify(body); // Stringify payload
+        let bodyString = JSON.stringify(body); 
         let headers      = new Headers({ 'Content-Type': 'application/json' });
         let options       = new RequestOptions({ headers: headers });
 
@@ -56,19 +58,24 @@ export class TodoService {
     // Delete a comment
     removeComment (id:string): Observable<Comment[]> {
         return this.http.delete(`${this.todoUrl}/${id}`)
-                         .map(res => res.json())
+                         .map((res:Response) => res.json())
                          .catch(this.handleError);
     }
 
+  // Simulate GET /todos/:id . ok 
+  loadTodo(id: number | string): Observable<Todo[]> {
+    return  this.http.get(`${this.todoUrl}/${id}`)
+     .do( res => console.log('loadTodo HTTP response:', res))
+      .map((resp: Response) => resp.json())
+      .catch(this.handleError);
+  }
 
-// Fetch all existing items
+// Fetch all existing items. ok
     getTodos() : Observable<Todo[]> {
          // ...using get request
          return this.http.get(this.todoUrl)
-                    .do( res => console.log('HTTP response:', res))
-                        // ...and calling .json() on the response to return data
-                    .map(res => res.json())
-                         // ...errors if any
+                    .do( res => console.log('getTodo HTTP response:', res))
+                    .map((res: Response) => res.json())                         
                     .catch(this.handleError);
 
      }
@@ -76,13 +83,6 @@ export class TodoService {
     let body = res.json();
     console.log(body.data || {});
     return body.data || { };
-  }
-
-  // Simulate GET /todos/:id
-  loadTodo(id: number | string): Observable<Todo[]> {
-    return  this.http.get(`${this.todoUrl}/todos/${id}`)
-      .map((resp: Response) => resp.json())
-      .catch(this.handleError);
   }
 
   private handleError (error: Response | any) {

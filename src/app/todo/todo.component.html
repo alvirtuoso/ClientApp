@@ -1,4 +1,15 @@
+  <div>
+  <label>Hero name:</label> <input #todoTitle />
+  <button (click)="add(todoTitle.value); todoTitle.value=''">
+    Add
+  </button>
+</div>
   <section>
+
+          <h3>
+            {{newTodo.title}}
+          </h3>
+
     <ul>
       <!--<li *ngFor="let todo of todoList | async">-->
       <li *ngFor="let todo of todos">
@@ -43,7 +54,7 @@
 
   <div class="card">
     <div class="card-image waves-effect waves-block waves-light">
-      <img class="activator" src="images/office.jpg">
+      <img class="activator" src="http://placehold.it/200">
     </div>
     <div class="card-content">
       <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">cloud</i></span>
