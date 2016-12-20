@@ -7,7 +7,7 @@ body {
     color:$primary-text-color;
 }
 a {
-    color: #03A9F4;
+    color: $link;
 }
 section {
   @include linear-gradient(to top, $primary-color-light, $offWhite);
@@ -33,37 +33,55 @@ section {
 
 .orange600 { color: #FB8C00; }
 
+/* Close Button */
+
+[class*='close-'] {
+  color: maroon;
+  font: 16px/100% arial, sans-serif;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 5px;
+}
+
+.close-button:after {
+  content: 'X'; /* ANSI X letter */
+}
+.close-button:hover {
+  color: lighten(maroon, 20);
+}
+
 // Cards
 .cards {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0 4px;
+    padding: 0 2px;
+    z-index: 1;
+    min-height: 0;
+}
+.card-box{
+    transition: box-shadow .25s;
+    padding: 2px;
+    margin: 5px 5px;
+    width: 220px;
+    border-radius: $base-border-radius;
+    box-shadow: 0 2px 4px darken($base-background-color, 10%);
+    max-height: 100%;
 }
 
 .card {
-  $base-border-color: gainsboro !default;
-  $base-border-radius: 3px !default;
-  $base-background-color: white !default;
-  $base-spacing: 1.5em !default;
-  $action-color: #477DCA !default;
-  $dark-gray: #333 !default;
-  $base-font-color: $dark-gray !default;
-  $card-border-color: $base-border-color;
-  $card-border: 1px solid $card-border-color;
-  $card-background: lighten($card-border-color, 10%);
-  $card-header-background: $card-background;
-  $card-margin: 1em;
-  $card-image-hover-opacity: 0.7;
-  $card-image-hover-color: #F8F2B4;
-
   background-color: $card-background;
   border: $card-border;
   border-radius: $base-border-radius;
   box-shadow: 0 2px 4px darken($base-background-color, 10%);
   cursor: pointer;
-  flex-basis: 15em;
-  flex-grow: 1;
-  margin: 0 $card-margin $base-spacing $card-margin;
+  width: 250px;
+  // flex-grow: 2;
+  margin: 10px 5px;
   position: relative;
   transition: all 0.2s ease-in-out;
 
@@ -79,16 +97,6 @@ section {
       transition: all 0.2s ease-in-out;
       width: 100%;
     }
-  }
-
-  .card-header {
-    background-color: $card-header-background;
-    border-bottom: $card-border;
-    border-radius: $base-border-radius $base-border-radius 0 0;
-    font-weight: bold;
-    line-height: 1.5em;
-    padding: ($base-spacing / 3) ($base-spacing / 2);
-    transition: all 0.2s ease-in-out;
   }
 
   .card-copy {
@@ -118,4 +126,14 @@ section {
     }
   }
 }
+
+  .card-header {
+    background-color: $card-header-background;
+    border-radius: $base-border-radius $base-border-radius 0 0;
+    font-weight: bold;
+    line-height: 1.5em;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    padding: 0 5px;
+  }
 // end of cards

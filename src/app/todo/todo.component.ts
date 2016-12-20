@@ -20,9 +20,8 @@ export class TodoComponent implements OnInit{
 
   }
     ngOnInit(){
-     //called after the constructor and called  after the first ngOnChanges()
+     // called after the constructor and called  after the first ngOnChanges()
      this.getTodos();
-     this.getTodoById(2);
   }
 
   add(title: string): void {
@@ -30,11 +29,7 @@ export class TodoComponent implements OnInit{
     if (!title) {
       return;
     }
-    let todo = new Todo();
-    todo.id = 19;
-    todo.title = title;
-    todo.completed = false;
-    todo.userId = 1;
+    let todo = new Todo(19, 1, 'testTitle', false);
     this.todoService.addTodo(todo)
       .subscribe(error => (this.errorMessage = <any>error));
   }
@@ -46,11 +41,8 @@ export class TodoComponent implements OnInit{
   update(title: string): void {
       title = title.trim();
     if (!title) { return; }
-    let todo = new Todo();
-    todo.id = 19;
-    todo.title = title;
-    todo.completed = false;
-    todo.userId = 1;
+    let todo = new Todo(19, 1, 'testTitle', false);
+
     this.todoService.updateTodo(todo)
       .subscribe(error => (this.errorMessage = <any>error));
   }

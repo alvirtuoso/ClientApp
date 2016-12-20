@@ -14,6 +14,7 @@ import {MaterializeDirective} from 'angular2-materialize';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { TodoComponent } from './todo/todo.component';
+import { NavComponent } from './nav/nav.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { TodoComponent } from './todo/todo.component';
     HomeComponent,
     AboutComponent,
     MaterializeDirective,
-    TodoComponent
+    TodoComponent,
+    NavComponent
 ],
   providers: [
     ApiService,
