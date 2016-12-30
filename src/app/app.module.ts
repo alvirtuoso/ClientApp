@@ -6,8 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import { ApiService } from './shared';
 import { TodoService } from './shared/todoService/todoService.service';
+import { UserService } from './shared/userService/user.service';
+import { BoardService } from './shared/boardService/board.service';
 import { routing } from './app.routing';
 
 import {MaterializeDirective} from 'angular2-materialize';
@@ -15,6 +16,8 @@ import {MaterializeDirective} from 'angular2-materialize';
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { TodoComponent } from './todo/todo.component';
 import { NavComponent } from './nav/nav.component';
+import { UserComponent } from './user/user.component';
+import { BoardComponent } from './board/board.component';
 
 
 @NgModule({
@@ -31,10 +34,13 @@ import { NavComponent } from './nav/nav.component';
     AboutComponent,
     MaterializeDirective,
     TodoComponent,
-    NavComponent
+    NavComponent,
+    UserComponent,
+    BoardComponent
 ],
   providers: [
-    ApiService,
+    UserService,
+    BoardService,
     TodoService
   ],
   bootstrap: [AppComponent]

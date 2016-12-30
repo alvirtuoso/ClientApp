@@ -1,0 +1,42 @@
+<p>
+  board works! Refactor nav.component by moving its board code stuff here!
+</p>
+
+  <div class="modal-content">
+    <div class="modal-header">
+      <span (click)="closeBoard()" class="xclose">&times;</span>
+        New Board {{showCreateBoard.isOn}}
+    </div>
+    <div class="modal-body">
+      <div class="row">
+
+        <form class="col s12" (ngSubmit)="onSubmit(boardForm.value)" #boardForm="ngForm">
+          <div class="row">
+              <div class="input-field col s12">
+                <input name="title" id="title" type="text" class="validate" ngModel required>
+                <label for="title">Title</label>
+              </div>
+              <!--<div [hidden]="title.valid || title.pristine"
+                  class="alert alert-error">
+                Name is required
+              </div>-->
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <input class="with-gap" name="classification_id" type="radio" id="public" value="1" ngModel/>
+              <label for="public">Public</label>
+            </div>
+            <div class="col s6">
+              <input class="with-gap" name="classification_id" type="radio" id="team" value="2" ngModel/>
+              <label for="team">Team</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" (click)="newBoard();" class="waves-effect waves-light btn" [disabled]="!boardForm.form.valid">Add</button>
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+  </div>

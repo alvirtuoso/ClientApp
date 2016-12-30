@@ -63,14 +63,26 @@ section {
     z-index: 1;
     min-height: 0;
 }
-.card-box{
+.card-item{
+    background-color: #fff;
     transition: box-shadow .25s;
     padding: 2px;
-    margin: 5px 5px;
-    width: 220px;
+    margin: 2px 0;
+    width: 100%;
+    border: 1px solid $divider-color;
     border-radius: $base-border-radius;
-    box-shadow: 0 2px 4px darken($base-background-color, 10%);
+    box-shadow: 0 2px 4px darken($base-background-color, 25%);
     max-height: 100%;
+    display: block;
+    color: $primary-text-color;
+      &:focus,
+      &:hover {
+        background-color: #FB8C00;
+
+    img {
+      opacity: $card-image-hover-opacity;
+    }
+  }
 }
 
 .card {
@@ -137,3 +149,120 @@ section {
     padding: 0 5px;
   }
 // end of cards
+
+// ****** The Modal (background) *******/
+.modalNew {
+    display: block; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 10px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+// * Modal Content */
+.modal-content {
+    float: right;
+    background-color: #fefefe;
+    margin: 0 5px;
+    padding: 5px;
+    border: 1px solid #888;
+    width: 300px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+// * Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+// * The Close Button */
+.xclose {
+    color: $offWhite;
+    float: right;
+    font-size: 28px;
+    margin-top: -8px;
+}
+
+.xclose:hover,
+.xclose:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+     font-weight: bold;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    border: 1px solid $divider-color;
+    color: #fff;
+    background-color: teal;
+    font-size: 1rem;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    border-top: 1px solid $divider-color;
+    color: $primary-text-color;
+    text-align: center;
+}
+
+// *****  End of Modal ***** /
+
+// *** Forms ****
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid $warning-red; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid $ok-green; /* red */
+} 
+.alert {
+padding: 8px 35px 8px 14px;
+margin-bottom: 18px;
+color: #c09853;
+text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+background-color: #fcf8e3;
+border: 1px solid #fbeed5;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+
+}
+.alert .close {
+position: relative;
+top: -2px;
+right: -21px;
+line-height: 18px;
+}
+
+.alert-success {
+color: #468847;
+background-color: #dff0d8;
+border-color: #d6e9c6;
+}
+
+.alert-danger,
+.alert-error {
+color: #b94a48;
+background-color: #f2dede;
+border-color: #eed3d7;
+}
+// ** End of Forms ****

@@ -18,20 +18,20 @@ export class TodoService {
 
   result: Array<Object>;
   todoUrl = 'https://jsonplaceholder.typicode.com/todos';
-  
+
   constructor(private http: Http) {
 
    }
-  
+
   // Simulate POST /todos. ok
    addTodo (body: Object): Observable<Todo[]> {
-        let bodyString = JSON.stringify(body); 
-        let headers      = new Headers({ 'Content-Type': 'application/json; charset=utf-8' }); 
-        let options       = new RequestOptions({ headers: headers }); 
+        let bodyString = JSON.stringify(body);
+        let headers      = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
+        let options       = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.todoUrl, bodyString, options) 
+        return this.http.post(this.todoUrl, bodyString, options)
                         .do( res => console.log('addTodo HTTP response:', res))
-                         .map((res:Response) => res.json()) 
+                         .map((res:Response) => res.json())
                          .catch(this.handleError);
 
     }
@@ -40,7 +40,7 @@ export class TodoService {
    deleteTodoById(id: number | string){
 
         let options = new RequestOptions({
-        	headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' }) 
+        	headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' })
         });
 
 		return this.http.delete(`${this.todoUrl}/${id}`,options)
@@ -52,7 +52,7 @@ export class TodoService {
   // Simulate PUT /todos/:id
     // Update a todo
     updateTodo (body: Object): Observable<Todo[]> {
-        let bodyString = JSON.stringify(body); 
+        let bodyString = JSON.stringify(body);
         let headers      = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
         let options       = new RequestOptions({ headers: headers });
 
@@ -69,7 +69,7 @@ export class TodoService {
                          .catch(this.handleError);
     }
 
-  // Simulate GET /todos/:id . ok 
+  // Simulate GET /todos/:id . ok
   loadTodo(id: number | string): Observable<Todo[]> {
     return  this.http.get(`${this.todoUrl}/${id}`)
      .do( res => console.log('loadTodo HTTP response:', res))
@@ -82,7 +82,7 @@ export class TodoService {
          // ...using get request
          return this.http.get(this.todoUrl)
                     .do( res => console.log('getTodo HTTP response:', res))
-                    .map((res: Response) => res.json())                         
+                    .map((res: Response) => res.json())
                     .catch(this.handleError);
 
      }
