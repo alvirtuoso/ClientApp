@@ -1,16 +1,12 @@
-<p>
-  board works! Refactor nav.component by moving its board code stuff here!
-</p>
-
   <div class="modal-content">
     <div class="modal-header">
       <span (click)="closeBoard()" class="xclose">&times;</span>
-        New Board {{showCreateBoard.isOn}}
+        New Board
     </div>
     <div class="modal-body">
       <div class="row">
 
-        <form class="col s12" (ngSubmit)="onSubmit(boardForm.value)" #boardForm="ngForm">
+        <form class="col s12" (ngSubmit)="onSubmit(boardForm)" #boardForm="ngForm">
           <div class="row">
               <div class="input-field col s12">
                 <input name="title" id="title" type="text" class="validate" ngModel required>
@@ -32,10 +28,12 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" (click)="newBoard();" class="waves-effect waves-light btn" [disabled]="!boardForm.form.valid">Add</button>
+            <button type="submit"  class="waves-effect waves-light btn" [disabled]="!boardForm.form.valid">Add</button>
           </div>
         </form>
-
+        <p class="ui-state-error-text" *ngIf="hasError">
+          Error: {{errorMessage}}
+        </p>
 
       </div>
     </div>

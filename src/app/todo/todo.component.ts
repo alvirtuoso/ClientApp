@@ -7,7 +7,7 @@ import {Observable} from "RxJS/Rx";
   selector: 'todo-app',
   templateUrl: 'todo.component.html',
   // styleUrls:['todo.component.css'],
-  providers: [TodoService]
+  // providers: [TodoService]
 })
 export class TodoComponent implements OnInit{
 
@@ -65,7 +65,7 @@ export class TodoComponent implements OnInit{
                        todos => {this.todos = todos},
                        error =>  {this.errorMessage = <any>error});
 
-   // this.todoList = this.todoService.getTodos(); // shorter version though without error logging. subscribe & unsubscribe automatically. Use it along with async pipe in the html template
+   // this.todoList = this.todoService.getTodos(); // shorter version though without error logging option. subscribes & unsubscribe automatically. Use it along with async pipe in the html template
 
 }
 

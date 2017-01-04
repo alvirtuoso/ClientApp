@@ -17,7 +17,7 @@ export class TodoService {
   todos: Todo[] = [];
 
   result: Array<Object>;
-  todoUrl = 'https://jsonplaceholder.typicode.com/todos';
+  todoUrl = 'http://localhost:5000/api/item';//'https://jsonplaceholder.typicode.com/todos';
 
   constructor(private http: Http) {
 

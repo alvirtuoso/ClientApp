@@ -12,17 +12,15 @@ export class BoardService extends Repository{
 
         super(request);
     }
-    create(body: Object): Observable<Board[]>{
-        let bodyString = JSON.stringify(body);
+    create(board: Board): Observable<Board[]>{
+        let bodyString = JSON.stringify(board);
         let headers      = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
         let options       = new RequestOptions({ headers: headers });
-
-        return this.request.post(this.apiUrl, bodyString, options)
+        console.log('board.service Create bodyString: ', bodyString);
+        return this.request.post(`${this.apiUrl}/create`, bodyString, options)
                         .do( res => console.log('board.service.create() HTTP response:', res))
                          .map((res:Response) => res.json())
                          .catch(this.handleError);
-
-
     }
     getAll(): Observable<Board[]>{
          return this.request.get(this.apiUrl)
@@ -30,7 +28,7 @@ export class BoardService extends Repository{
                     .map((res: Response) => res.json())
                     .catch(this.handleError);
     }
-    update(body: Object): Observable<Board[]>{
+    update(body: Board): Observable<Board[]>{
         let bodyString = JSON.stringify(body);
         let headers      = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
         let options       = new RequestOptions({ headers: headers });

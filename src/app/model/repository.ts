@@ -13,7 +13,7 @@ export class Repository {
 
     delete(id: number | string, apiUrl: string){
         let options = new RequestOptions({
-        	headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' }) 
+        	headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' })
         });
 
 		return this.http.delete(`${apiUrl}/${id}`,options)
@@ -33,7 +33,10 @@ export class Repository {
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
+    console.error('repository.ts HttpRequest Error', errMsg);
     return Observable.throw(errMsg);
+    // return Observable.throw(error.json().error || 'server_error');
+
   }
+
 }
