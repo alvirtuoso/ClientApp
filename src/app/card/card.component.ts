@@ -15,7 +15,7 @@ export class CardComponent implements OnInit {
   cards: Card[] = [];
   errorMessage: String;
   private observable:any;
-  
+
   ngOnInit() {
     if(this.boardId){
       this.getCardsByBoardId(this.boardId);
@@ -32,8 +32,10 @@ export class CardComponent implements OnInit {
   getCardsByBoardId(boardId:number){
     this.observable = this.cardSvc.getCardsByBoardId(boardId).subscribe(cardList => this.cards = cardList,
                                       err => this.errorMessage = err);
-                                   
+
   }
-  
+  addCardItem(){
+
+  }
 
 }
