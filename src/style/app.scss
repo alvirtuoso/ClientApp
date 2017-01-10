@@ -12,7 +12,10 @@ a {
 section {
   @include linear-gradient(to top, $primary-color-light, $offWhite);
 }
-
+.am-container{
+  padding: 6px 6px;
+  background-color: teal;
+}
 .completed {
     text-decoration: line-through;
 }
@@ -146,8 +149,13 @@ section {
     line-height: 1.5em;
     transition: all 0.2s ease-in-out;
     display: flex;
+    justify-content: space-between;
     padding: 0 5px;
+    .header-item{
+      width: 40%;
+    }
   }
+
 // end of cards
 
 // ****** The Modal (background) *******/
@@ -182,7 +190,7 @@ section {
 
 // * Add Animation */
 @-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
+    from {top:-300px; opacity:0}
     to {top:0; opacity:1}
 }
 
@@ -233,7 +241,7 @@ section {
 
 .ng-invalid:not(form)  {
   border-left: 5px solid $ok-green; /* red */
-} 
+}
 .alert {
 padding: 8px 35px 8px 14px;
 margin-bottom: 18px;

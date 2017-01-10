@@ -3,15 +3,14 @@
 
       <a href="#" materialize="sideNav" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a [routerLink]="['']">Home</a></li>
         <li><a [routerLink]="['about']">About</a></li>
-        <li><a href="#">Foo</a></li>
+        <!--<li><a [routerLink]="['board-form']" class="waves-effect waves-light"><i class="material-icons">add</i></a></li>-->
         <li><a (click)="toggleNewBoard()" class="waves-effect waves-light"><i class="material-icons">add</i></a></li>
       </ul>
       <ul class="side-nav" id="mobile-nav">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Foo</a></li>
-        <li><a (click)="toggleNewBoard()" class="btn-floating btn-large waves-effect waves-light teal"><i class="material-icons">add</i></a></li>
+        <!--<li><a [routerLink]="['board']" class="waves-effect waves-light"><i class="material-icons">add</i></a></li>-->
+        <li><a [routerLink]="['about']">About</a></li>
+        <!--<li><a (click)="toggleNewBoard()" class="btn-floating btn-large waves-effect waves-light teal"><i class="material-icons">add</i></a></li>-->-->
 
       </ul>
 
@@ -21,6 +20,6 @@
 <!-- The Modal -->
 <div *ngIf="showNewBoard.isOn" id="myModal" class="modalNew">
   <!-- Modal content -->
- <board [showCreateBoard]= "showNewBoard"></board>
+ <board-form [showCreateBoard]= "showNewBoard"></board-form>
 
 </div>

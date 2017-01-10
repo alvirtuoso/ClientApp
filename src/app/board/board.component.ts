@@ -1,49 +1,33 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Board } from '../model/board';
-import { BoardService } from '../shared/boardService/board.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CardService } from '../shared/cardService/card.service';
+import { Card } from '../model/card';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'board',
   templateUrl: './board.component.html'
+  // styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
-  @Input() showCreateBoard;
 
-  board = new Board();
-  errorMessage: string;
-  hasError:boolean = false;
-  constructor(private boardSvc: BoardService) { }
+  constructor(private cardSvc: CardService, private route: ActivatedRoute) { }
+  
+  cards: Card[] = [];
+  errorBoardMsg:string;
+  private observe: any;
+  id: number;
 
   ngOnInit() {
-
-  }
-
-  closeBoard(){
-    
-      this.showCreateBoard.isOn = !this.showCreateBoard.isOn;
-    
-    
-  }
-
-  onSubmit(form:any):void{
-    event.preventDefault();
-    // this.boardSvc.getAll().subscribe(error => (this.errorMessage = <any>error));
-    
-    //  cast to Board object
-    this.board = <Board>{title: form.value["title"], classification_id: form.value["classification_id"]};
-    this.boardSvc.create(this.board)
-      .subscribe(server_error => this.errorMessage = <any>server_error);
-      // toggle error message with this flag
-      console.log('errorMessage OnSubmit:', this.errorMessage);
+      this.observe = this.route.params
+                     .do(params => console.log('boardcomponent ngOnInit params', params))
+                     .subscribe(params => this.id = +params['id']);  // (+) converts string 'id' to a number
+                    //  .switchMap((params: Params) => this.cardSvc.getCardsByBoardId(+params['id']))
+                    //  .subscribe(cards => {this.cards = cards; console.log('cards:', this.cards);});
       
-      if(typeof this.errorMessage !='undefined' && this.errorMessage){
-        this.hasError = true;
-        this.errorMessage = 'Server Error: HttpRequest';
-      }else{
-        this.hasError = false;
-        this.errorMessage = '';
-      }  
-      this.closeBoard();
-    }
+   }
 
+  
+   ngOnDestroy() {
+    this.observe.unsubscribe();
+  }
 }

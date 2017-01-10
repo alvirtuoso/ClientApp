@@ -4,7 +4,7 @@ export class Board {
     public board_id?: number;
     public owner_id?: number; // TODO: remove "?" later
     public classification_id: number = 1; // 1 for public, 2 for team
-
+    public initial_card_id?: number;
     /**
      *
      */

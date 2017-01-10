@@ -1,0 +1,21 @@
+<div *ngIf="errorMessage">Error: {{errorMessage}}</div>
+
+
+<div class="cards" *ngIf="cards.length > 0">
+
+      <div class="card" *ngFor="let card of cards">
+          <div class="card-header">
+            <div class="header-item">{{card.name}}</div>
+            <div class="header-item"><i class="material-icons right" (click)="addCardItem()">add</i></div>
+          </div>
+
+        <div class="cards">
+          <div class="card-item">Adrian Is a CARD ITEM ok</div>
+          <div class="card-item">Alvin</div>
+
+        </div>
+
+    </div>
+</div>
+
+

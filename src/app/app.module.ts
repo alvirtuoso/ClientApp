@@ -9,6 +9,7 @@ import { AboutComponent } from './about/about.component';
 import { TodoService } from './shared/todoService/todoService.service';
 import { UserService } from './shared/userService/user.service';
 import { BoardService } from './shared/boardService/board.service';
+import { CardService } from './shared/cardService/card.service';
 import { routing } from './app.routing';
 
 import {MaterializeDirective} from 'angular2-materialize';
@@ -17,6 +18,8 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { TodoComponent } from './todo/todo.component';
 import { NavComponent } from './nav/nav.component';
 import { UserComponent } from './user/user.component';
+import { BoardFormComponent } from './board-form/board-form.component';
+import { CardComponent } from './card/card.component';
 import { BoardComponent } from './board/board.component';
 
 
@@ -36,11 +39,14 @@ import { BoardComponent } from './board/board.component';
     TodoComponent,
     NavComponent,
     UserComponent,
+    BoardFormComponent,
+    CardComponent,
     BoardComponent
 ],
   providers: [
     UserService,
     BoardService,
+    CardService,
     TodoService
   ],
   bootstrap: [AppComponent]
