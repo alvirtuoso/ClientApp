@@ -17,6 +17,21 @@ $nav-menu-color:        #ee6e73;
 
 $warning-red: #a94442;
 $ok-green: #42A948;
+$x-red: #BB3333;
+
+ $bg-gradient-1: #607D8B;
+//  $bg-gradient-1: #074979;
+//  $bg-gradient-1: #53a93f;
+//  $bg-gradient-1: #231811;
+//  $bg-gradient-1: hsl(351, 100%, 46%);
+//  $bg-gradient-1: hsl(0,0%,18%);
+
+$bg-gradient-2: desaturate(lighten($bg-gradient-1, 4%), 4%);
+$bg-gradient-3: desaturate(lighten($bg-gradient-1, 12%), 16%);
+$bg-gradient-4: desaturate(lighten($bg-gradient-1, 13%), 17%);
+$bg-gradient-5: desaturate(lighten($bg-gradient-1, 14%), 18%);
+$bg-gradient-6: desaturate(lighten($bg-gradient-1, 16%), 20%);
+// end of Colors
 
 // Card 
   $base-border-color: gainsboro !default;
@@ -33,3 +48,5 @@ $ok-green: #42A948;
   $card-margin: 1em;
   $card-image-hover-opacity: 0.7;
   $card-image-hover-color: #F8F2B4;
+// end of Card
+

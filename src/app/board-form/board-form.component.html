@@ -1,9 +1,11 @@
-  <div *ngIf="showCreateBoard.isOn" class="modal-content">
-    <div class="modal-header">
-      <span (click)="closeBoard()" class="xclose">&times;</span>
+  <div *ngIf="showCreateBoard.isOn" class="modal-block">
+    <div class="modal-head">
+
+      <div (click)="closeBoard()"><div class="hover-pointer"><i class="material-icons right">not_interested</i></div>
         New Board
+      </div>
     </div>
-    <div class="modal-body">
+    <div class="modal-bod">
       <div class="row">
 
         <form class="col s12" (ngSubmit)="onSubmit(boardForm)" #boardForm="ngForm">
@@ -19,15 +21,15 @@
           </div>
           <div class="row">
             <div class="col s6">
-              <input class="with-gap" name="classification_id" type="radio" id="public" value="1" ngModel/>
+              <input name="classification_id" class="filled-in" type="checkbox" id="public" value="faad67d2-7ec6-494e-a4ef-ac126481f77f" [checked]="isPublic" (change)="isPublic = $event.target.checked" />
               <label for="public">Public</label>
             </div>
-            <div class="col s6">
-              <input class="with-gap" name="classification_id" type="radio" id="team" value="2" ngModel/>
+            <!--<div class="col s12">
+              <input name="classification_id" type="checkbox" id="team" value="30c968cb-5686-444d-b138-21d90d15f1ca" [checked]="!isPublic" (change)="isPublic = $event.target.checked" />
               <label for="team">Team</label>
-            </div>
+            </div>-->
           </div>
-          <div class="modal-footer">
+          <div class="modal-foot">
             <button type="submit"  class="waves-effect waves-light btn" [disabled]="!boardForm.form.valid">Add</button>
           </div>
         </form>

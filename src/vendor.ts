@@ -11,7 +11,8 @@ import '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/finally';
+import 'rxjs/add/operator/toPromise';
 
 import '@angularclass/hmr';
 
@@ -19,8 +20,6 @@ import 'materialize-css';
 import 'angular2-materialize';
 
 import '../node_modules/materialize-css/bin/materialize.css';
-// import "../node_modules/todomvc-app-css/index.css";
-// import "../node_modules/todomvc-common/base.css";
 
 // Other vendors for example jQuery, Lodash or Bootstrap
 // You can import js, ts, css, sass, ...

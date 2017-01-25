@@ -1,15 +1,16 @@
 export class Board {
 
     public title: string;
-    public board_id?: number;
-    public owner_id?: number; // TODO: remove "?" later
-    public classification_id: number = 1; // 1 for public, 2 for team
-    public initial_card_id?: number;
+    public date_Created?: Date;
+    public board_Id?: string;
+    public owner_Id?: string; // TODO: remove "?" later
+    public classification_Id: string ;
+    public initial_Card_Id?: string;
     /**
      *
      */
     constructor() {
-      
+
     }
 
 }

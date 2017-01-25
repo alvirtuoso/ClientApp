@@ -16,6 +16,6 @@ export class AboutComponent implements OnInit {
   }
 
   onTestBoardCards(){
-    this.router.navigate(['/board', 7]);
+    this.router.navigate(['/board', '2b6aa40b-84b6-4088-99e9-1aa96f093572']);
   }
 }

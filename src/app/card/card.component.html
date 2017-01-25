@@ -3,19 +3,51 @@
 
 <div class="cards" *ngIf="cards.length > 0">
 
-      <div class="card" *ngFor="let card of cards">
-          <div class="card-header">
-            <div class="header-item">{{card.name}}</div>
-            <div class="header-item"><i class="material-icons right" (click)="addCardItem()">add</i></div>
+      <div class="card" *ngFor="let card of cards; trackBy card?.card_Id">
+          <div class="card-header" *ngIf="!hideme[card.card_Id]">
+            <div class="header-item bottomborder" (click)="toggleEditTitle(card.card_Id)">{{card.name}}
+              
+            </div>
+            <div class="header-button" *ngIf="!hideme[card.sort_Order]">
+              <i class="material-icons" (click)="hideme[card.sort_Order] = !hideme[card.sort_Order]">add</i>
+              <ul  [attr.id]="card.card_Id" class="dropdown-content">
+                <li><span (click)="deleteCard(card.card_Id, card.name, card)">Delete</span></li>
+                <li><span>Edit</span></li>
+              </ul>
+              <a materialize="dropdown" [materializeParams]="[{hover: true}]" class="dropdown-button" [attr.data-activates]="card.card_Id"><i class="material-icons">arrow_drop_down</i></a>
+
+            </div>
+          </div>
+          <div class="card-header"*ngIf="hideme[card.card_Id]">   
+             <div class="header-item"><input #namebox class="input12" [(ngModel)]="card.name"  (keyup.enter)="onEnter({'namebox': namebox.value, 'cardid': cardid.value});toggleEditTitle(card.card_Id);"> </div>
+             <div class="header-button" (click)="toggleEditTitle(card.card_Id)"><i class="material-icons right">not_interested</i></div>
+             <input type="hidden" #cardid [value]="card.card_Id" >
+          </div>
+        <div class="items">
+          <div class="item-form" *ngIf="hideme[card.sort_Order]">
+            <form (ngSubmit)="onSubmit(itemForm, card)" #itemForm="ngForm">
+              <input name="title" id="title" type="text" ngModel required>
+              <input type="hidden" name="card_Id" id="card_Id" [(ngModel)]="card.card_Id">
+              <input name ="sort_order" id="sort_order" type="hidden" [(ngModel)]="card.sort_Order">
+               <button type="submit" class="waves-effect waves-light btn" [disabled]="!itemForm.form.valid">Add</button>
+               <button  (click)="hideme[card.sort_Order] = !hideme[card.sort_Order]">Discard</button>
+            </form>
           </div>
 
-        <div class="cards">
-          <div class="card-item">Adrian Is a CARD ITEM ok</div>
-          <div class="card-item">Alvin</div>
+          <div class="card-item" *ngFor="let item of card.items; trackBy item?.item_id">
+
+              {{item.title}} <i class="material-icons right">more_vert</i>
+
+          </div>
 
         </div>
-
+ <!--[ngClass]="{fifty: items_count.value > 1, hundred: items_count.value < 1}"-->
     </div>
+      <div class="btn-card-add" (click)="addNew()"> 
+          +
+      </div>
+     <div class="spacer"></div>
+
 </div>
 
 

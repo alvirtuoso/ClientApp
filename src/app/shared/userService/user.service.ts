@@ -30,7 +30,7 @@ export class UserService extends Repository{
                     .map((res: Response) => res.json())
                     .catch(this.handleError);
     }
-    update(body: Object): Observable<User[]>{
+    updateRequest(body: Object): Observable<User[]>{
         let bodyString = JSON.stringify(body);
         let headers      = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
         let options       = new RequestOptions({ headers: headers });

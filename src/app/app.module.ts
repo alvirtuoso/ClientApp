@@ -6,21 +6,24 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import { TodoService } from './shared/todoService/todoService.service';
 import { UserService } from './shared/userService/user.service';
 import { BoardService } from './shared/boardService/board.service';
 import { CardService } from './shared/cardService/card.service';
+import { ItemService } from './shared/itemService/item.service';
 import { routing } from './app.routing';
 
 import {MaterializeDirective} from 'angular2-materialize';
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
-import { TodoComponent } from './todo/todo.component';
 import { NavComponent } from './nav/nav.component';
 import { UserComponent } from './user/user.component';
 import { BoardFormComponent } from './board-form/board-form.component';
 import { CardComponent } from './card/card.component';
 import { BoardComponent } from './board/board.component';
+
+import { Global } from './shared/global';
 
 
 @NgModule({
@@ -29,6 +32,8 @@ import { BoardComponent } from './board/board.component';
     HttpModule,
     JsonpModule,
     FormsModule,
+    ModalModule.forRoot(),
+    BootstrapModalModule,
     routing
   ],
   declarations: [
@@ -36,7 +41,6 @@ import { BoardComponent } from './board/board.component';
     HomeComponent,
     AboutComponent,
     MaterializeDirective,
-    TodoComponent,
     NavComponent,
     UserComponent,
     BoardFormComponent,
@@ -47,7 +51,8 @@ import { BoardComponent } from './board/board.component';
     UserService,
     BoardService,
     CardService,
-    TodoService
+    ItemService,
+    Global
   ],
   bootstrap: [AppComponent]
 })

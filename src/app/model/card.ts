@@ -1,8 +1,10 @@
 export class Card {
-    public card_id:number;
+    public card_Id?:string;  // auto increment in the DB
     public name:string;
-    public date_created: Date;
+    public date_Created?: Date;  // date is created automatically in the DB
     public active: boolean;
-    public owner_id: number;
-    public board_id: number;
+    public owner_Id?: string;
+    public board_Id: string;
+    public items?:any;
+    public sort_Order?:number; // order is on auto increment in the DB
 }

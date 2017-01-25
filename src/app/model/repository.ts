@@ -9,18 +9,13 @@ export class Repository {
 
     create(obj: Object): any{}
     getAll(): any{}
-    update(obj: Object): any{}
+    updateRequest(obj: Object): any{}
 
-    delete(id: number | string, apiUrl: string){
-        let options = new RequestOptions({
-        	headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' })
-        });
-
-		return this.http.delete(`${apiUrl}/${id}`,options)
-      .do( res => console.log('DeleteTodoById HTTP response:', res))
-			.map((res:Response) => res.json())
-			.catch(this.handleError);
-
+    delete(apiUrl: string){
+      return this.http.delete(apiUrl)
+        .do(res => console.log('onDoing Delete:', apiUrl))
+        .catch(this.handleError)
+        .subscribe(res => console.log(res));
     }
 
    handleError (error: any) {

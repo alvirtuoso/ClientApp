@@ -10,24 +10,20 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class BoardComponent implements OnInit {
 
-  constructor(private cardSvc: CardService, private route: ActivatedRoute) { }
-  
+  constructor(private route: ActivatedRoute) { }
+
   cards: Card[] = [];
   errorBoardMsg:string;
   private observe: any;
-  id: number;
+  id: string;
 
   ngOnInit() {
+    // pass this.id to card.component's boardId input directive. Load the cards in the card.component
       this.observe = this.route.params
-                     .do(params => console.log('boardcomponent ngOnInit params', params))
-                     .subscribe(params => this.id = +params['id']);  // (+) converts string 'id' to a number
-                    //  .switchMap((params: Params) => this.cardSvc.getCardsByBoardId(+params['id']))
-                    //  .subscribe(cards => {this.cards = cards; console.log('cards:', this.cards);});
-      
+                     .subscribe(params => {this.id = params['id']});  // (+) converts string 'id' to a number
    }
 
-  
    ngOnDestroy() {
-    this.observe.unsubscribe();
+    // this.observe.unsubscribe();
   }
 }
