@@ -8,7 +8,7 @@ export class Item {
     public modified_By_Id?:string;
     public status_Id: number;
     public date_Modified?: Date;
-
+    public sort_Order?:number;
 
 
 

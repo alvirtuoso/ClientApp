@@ -15,6 +15,7 @@ import { routing } from './app.routing';
 import {MaterializeDirective} from 'angular2-materialize';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+import {DragulaModule, DragulaService} from 'ng2-dragula/ng2-dragula';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { NavComponent } from './nav/nav.component';
@@ -24,6 +25,8 @@ import { CardComponent } from './card/card.component';
 import { BoardComponent } from './board/board.component';
 
 import { Global } from './shared/global';
+import { TestDragComponent } from './TestDrag/TestDrag.component';
+import { ItemComponent } from './item/item.component';
 
 
 @NgModule({
@@ -34,6 +37,7 @@ import { Global } from './shared/global';
     FormsModule,
     ModalModule.forRoot(),
     BootstrapModalModule,
+    DragulaModule,
     routing
   ],
   declarations: [
@@ -45,13 +49,16 @@ import { Global } from './shared/global';
     UserComponent,
     BoardFormComponent,
     CardComponent,
-    BoardComponent
+    BoardComponent,
+    TestDragComponent,
+    ItemComponent
 ],
   providers: [
     UserService,
     BoardService,
     CardService,
     ItemService,
+    DragulaService,
     Global
   ],
   bootstrap: [AppComponent]

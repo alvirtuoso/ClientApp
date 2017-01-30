@@ -6,6 +6,7 @@ import { Item } from '../model/item';
 import { Global } from '../shared/global'
 import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
+import { dragula, DragulaService } from 'ng2-dragula/ng2-dragula';
 
 @Component({
   selector: 'card',
@@ -16,9 +17,15 @@ export class CardComponent implements OnInit, AfterViewInit {
 @Input() boardId:string;
 @ViewChild('namebox') namebox: ElementRef;
 
-  constructor(overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal, private renderer: Renderer, private cardSvc: CardService, private itemSvc: ItemService, private global: Global)
+  constructor(private dragulaService: DragulaService, overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal, private renderer: Renderer, private cardSvc: CardService, private itemSvc: ItemService, private global: Global)
   {
     overlay.defaultViewContainer = vcRef;
+    dragulaService.setOptions('bag-one', {
+      revertOnSpill: true
+    });
+    dragulaService.drop.subscribe((value) => {
+      this.onDrop(value.slice(1));
+    });
   }
 
   enableTitleEdit: boolean = false;
@@ -65,6 +72,19 @@ export class CardComponent implements OnInit, AfterViewInit {
     // this.renderer.invokeElementMethod(this.namebox.nativeElement, 'focus', []);
   }
 
+// Handles drag drop of an item in a card. Only saves the dropping of an item into different card. Saving the item's index order is done in item.component
+  onDrop(args) {
+    let [el, target, source, sibling] = args;
+    let targetCardId = target.title;
+    let itemId = el.id;
+    console.log('target: ', target.title + ' src: ' + source.title);
+    // Update only when dropping into different card
+    if(target.title != source.title){
+      console.log('notequal');
+      this.itemSvc.updateItemCardId(itemId, targetCardId).subscribe();
+    }
+  }
+
 // Retrieves all cards
  getCards(){
     this.cardSvc.getAll().subscribe(cardlist => {this.cards = cardlist; console.log('cards: ', this.cards)},
@@ -85,31 +105,29 @@ export class CardComponent implements OnInit, AfterViewInit {
     let card = new Card();
     card.name = "New Card";
     card.active = true;
-    card.owner_Id = "d705fa4d-23cc-46ca-8a23-e7257a72bca4";
+    card.owner_Id = this.global.ownerid;
     card.board_Id = this.boardId;
 
     this.cardSvc.create(card).subscribe(newCard => this.cards.push(newCard), err => this.errorMessage = err);
   }
 
 // Delete card by id
-deleteCard(card_id: string, name: string, card: Object){
-  var c = <Card>card;
-  console.log('cardtoDelete', c);
-  console.log('card name', c.name);
-  // var deleteByIdUrl = `${this.global.apiCardUrl}/delete/${card_id}`;
-  //     this.modal.confirm()
-  //       .size('sm')
-  //       .title('<span>Continue deleting this card?</span>')
-  //       .body(`
-  //          <h5>"${name}"?</h5>
-  //       `)
-  //           .okBtn('Delete')
-  //           .cancelBtn('Cancel')
-  //           .open()
-  //           .catch(err => alert("ERROR")) // catch error not related to the result (modal open...)
-  //           .then(dialog => dialog.result) // dialog has more properties,lets just return the promise for a result.
-  //           .then(result => {this.cardSvc.delete(deleteByIdUrl)}) // if were here ok was clicked.
-  //           .catch(err => alert("CANCELED")); // if were here it was cancelled (click or non block click)
+deleteCard(card_id: string, name: string, i: number){
+  console.log('index of card:', i);
+  var deleteByIdUrl = `${this.global.apiCardUrl}/delete/${card_id}`;
+      this.modal.confirm()
+        .size('sm')
+        .title('Continue deleting this card?')
+        .body(`
+           <h5>"${name}"</h5>
+        `)
+            .okBtn('Delete')
+            .cancelBtn('Cancel')
+            .open()
+            .catch(err => console.log('Deletion Error Occurred: ', err)) // catch error not related to the result (modal open...)
+            .then(dialog => dialog.result) // dialog has more properties,lets just return the promise for a result.
+            .then(result => {this.cardSvc.delete(deleteByIdUrl); this.cards.splice(i, 1)}) // if were here ok was clicked.
+            .catch(err => console.log('Cancelled Deletion', err)); // if were here it was cancelled (click or non block click)
 
   // this.cardSvc.delete(id, deleteByIdUrl);
 }

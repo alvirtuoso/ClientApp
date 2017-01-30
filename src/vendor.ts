@@ -9,6 +9,7 @@ import '@angular/router';
 // import 'rxjs';
  // Import RxJs required methods
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/finally';
@@ -25,3 +26,5 @@ import '../node_modules/materialize-css/bin/materialize.css';
 // You can import js, ts, css, sass, ...
 // import '../node_modules/jQuery/src/jquery.js';
 import './public/style.js';
+
+import 'dragula/dist/dragula.css';

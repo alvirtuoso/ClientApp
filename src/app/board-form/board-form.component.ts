@@ -21,21 +21,20 @@ export class BoardFormComponent implements OnInit {
 
   }
 
+// Close the form
   closeBoard(){
-
       this.showCreateBoard.isOn = !this.showCreateBoard.isOn;
-
-
   }
 
+// Save new board from the form.
   onSubmit(form:any):void{
     var classId = this.isPublic ? this.global.publicClassificationId : this.global.teamClassificationId;
 
     //  cast to Board object
     this.board = <Board>{title: form.value["title"], owner_Id: this.global.ownerid, classification_Id: classId};
-    console.log('thisboard: ', this.board);
+
     this.boardSvc.create(this.board)
-      .subscribe((data) => {this.board = data; console.log('this.board', this.board); this.router.navigate(['/board', this.board.board_Id])}, err => this.errorMessage = <any>err);
+      .subscribe((data) => {this.board = data; this.router.navigate(['/board', this.board.board_Id])}, err => this.errorMessage = <any>err);
 
       if(typeof this.errorMessage !='undefined' && this.errorMessage){
         this.hasError = true;
@@ -44,6 +43,7 @@ export class BoardFormComponent implements OnInit {
         this.hasError = false;
         this.errorMessage = '';
       }
+      // Close the form
      this.closeBoard();
 
 

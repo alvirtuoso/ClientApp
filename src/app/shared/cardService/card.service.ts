@@ -44,7 +44,6 @@ export class CardService extends Repository{
         let bodyString = JSON.stringify(body);
         let headers      = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
         let options       = new RequestOptions({ headers: headers });
-        console.log('card.service.ts update', bodyString);
        return this.request.put(`${this.apiUrl}/update`, bodyString, { headers: headers })
                           .do( res => console.log('cardservice Update HTTP response:', res))
                         // .map(resp => resp.json)
