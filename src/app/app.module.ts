@@ -12,8 +12,10 @@ import { CardService } from './shared/cardService/card.service';
 import { ItemService } from './shared/itemService/item.service';
 import { routing } from './app.routing';
 
-import {MaterializeDirective} from 'angular2-materialize';
+// import {MaterializeDirective} from 'angular2-materialize';
+import { MaterializeModule } from 'angular2-materialize';
 import { ModalModule } from 'angular2-modal';
+// import { VexModalModule } from 'angular2-modal/plugins/vex';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import {DragulaModule, DragulaService} from 'ng2-dragula/ng2-dragula';
 
@@ -25,9 +27,7 @@ import { CardComponent } from './card/card.component';
 import { BoardComponent } from './board/board.component';
 
 import { Global } from './shared/global';
-import { TestDragComponent } from './TestDrag/TestDrag.component';
 import { ItemComponent } from './item/item.component';
-
 
 @NgModule({
   imports: [
@@ -37,6 +37,7 @@ import { ItemComponent } from './item/item.component';
     FormsModule,
     ModalModule.forRoot(),
     BootstrapModalModule,
+    MaterializeModule,
     DragulaModule,
     routing
   ],
@@ -44,13 +45,12 @@ import { ItemComponent } from './item/item.component';
     AppComponent,
     HomeComponent,
     AboutComponent,
-    MaterializeDirective,
+    // MaterializeDirective,
     NavComponent,
     UserComponent,
     BoardFormComponent,
     CardComponent,
     BoardComponent,
-    TestDragComponent,
     ItemComponent
 ],
   providers: [

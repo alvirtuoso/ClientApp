@@ -1,7 +1,7 @@
   <div *ngIf="showCreateBoard.isOn" class="modal-block">
     <div class="modal-head">
 
-      <div (click)="closeBoard()"><div class="hover-pointer"><i class="material-icons right">not_interested</i></div>
+      <div (click)="closeBoard()"><div class="hover-pointer"><i class="material-icons right">close</i></div>
         New Board
       </div>
     </div>
@@ -11,7 +11,7 @@
         <form class="col s12" (ngSubmit)="onSubmit(boardForm)" #boardForm="ngForm">
           <div class="row">
               <div class="input-field col s12">
-                <input name="title" id="title" type="text" class="validate" ngModel required>
+                <input name="title" id="title" type="text" ngModel required>
                 <label for="title">Title</label>
               </div>
               <!--<div [hidden]="title.valid || title.pristine"

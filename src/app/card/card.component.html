@@ -1,12 +1,10 @@
 <div *ngIf="errorMessage">Error: {{errorMessage}}</div>
 
-
 <div class="cards" *ngIf="cards.length > 0">
-
       <div class="card" *ngFor="let card of cards; let i = index; trackBy card?.card_Id">
           <div class="card-header" *ngIf="!hideme[card.card_Id]">
             <div class="header-item bottomborder" (click)="toggleEditTitle(card.card_Id)">{{card.name}}
-              
+
             </div>
             <div class="header-button" *ngIf="!hideme[card.sort_Order]">
               <i class="material-icons" (click)="hideme[card.sort_Order] = !hideme[card.sort_Order]">add</i>
@@ -18,7 +16,7 @@
 
             </div>
           </div>
-          <div class="card-header"*ngIf="hideme[card.card_Id]">   
+          <div class="card-header"*ngIf="hideme[card.card_Id]">
              <div class="header-item"><input #namebox class="input12" [(ngModel)]="card.name"  (keyup.enter)="onEnter({'namebox': namebox.value, 'cardid': cardid.value});toggleEditTitle(card.card_Id);"> </div>
              <div class="header-button" (click)="toggleEditTitle(card.card_Id)"><i class="material-icons right">close</i></div>
              <input type="hidden" #cardid [value]="card.card_Id" >
@@ -43,7 +41,7 @@
         </div>
  <!--[ngClass]="{fifty: items_count.value > 1, hundred: items_count.value < 1}"-->
     </div>
-      <div class="btn-card-add" (click)="addNew()"> 
+      <div class="btn-card-add" (click)="addNew()">
           +
       </div>
      <div class="spacer"></div>

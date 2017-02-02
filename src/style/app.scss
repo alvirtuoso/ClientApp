@@ -308,7 +308,11 @@ section {
 }
 
 // *****  End of Modal ***** /
-
+.center-block{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
 // *** Forms ****
 .ng-valid[required], .ng-valid.required  {
   border-left: 5px solid $warning-red; /* green */

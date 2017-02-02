@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, AfterViewInit, ViewContainerRef, Renderer, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, AfterViewInit, ViewContainerRef, Renderer, ViewChild, ElementRef, Input, EventEmitter } from '@angular/core';
 import { Card } from '../model/card';
 import { CardService } from '../shared/cardService/card.service';
 import { ItemService } from '../shared/itemService/item.service';
@@ -7,6 +7,7 @@ import { Global } from '../shared/global'
 import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
 import { dragula, DragulaService } from 'ng2-dragula/ng2-dragula';
+
 
 @Component({
   selector: 'card',
@@ -36,7 +37,7 @@ export class CardComponent implements OnInit, AfterViewInit {
   errorMessage: string;
   cardNameOnEdit: string;
   hideme:any = {};
-
+  isDelete: boolean = false;
   newCardName = '';
 
   // Edits a Card's name
