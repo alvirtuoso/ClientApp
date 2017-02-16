@@ -6,10 +6,11 @@ import '@angular/common';
 import '@angular/http';
 import '@angular/router';
 
-// import 'rxjs';
+// import 'rxjs'; // Loads all rxjs 
  // Import RxJs required methods
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/finally';

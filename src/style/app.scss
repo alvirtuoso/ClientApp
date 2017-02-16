@@ -3,7 +3,7 @@
 
 // styles in src/style directory are applied to the whole page
 body {
-    background-color: $bg-gradient-6;
+    background-color: $bg-gradient-2;
     color:$primary-text-color;
 }
 a {
@@ -245,35 +245,73 @@ section {
 // end of cards
 
 // ****** The Modal (background) *******/
-.modalNew {
-    display: block; /* Hidden by default */
-    position: fixed; /* Stay in place */
+.modal-container {
+  display: flex;
+  align-items: center;
+  // justify-content: center;
     z-index: 1; /* Sit on top */
     padding-top: 10px; /* Location of the box */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
-    height: 100%; /* Full height */
+    min-height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    // background-color: rgb(0,0,0); /* Fallback color */
+    // background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
 }
 
-// * Modal Content */
+// * Modal body */
 .modal-block {
-    float: right;
-    background-color: #fefefe;
+    flex: 1;
+    display: flex;
+    // flex-direction: row;
+    flex-flow: wrap row;
+    // max-width: 50%;
+
+    background-color: ghostwhite;
     margin: 0 5px;
     padding: 5px;
     border: 1px solid #888;
-    width: 300px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
-    animation-duration: 0.4s
+    animation-duration: 0.4s;
+
+}
+.modal-width{
+  max-width: 50%;
+}
+.modal-right{
+  justify-content: flex-end
+}
+.modal-center{
+  justify-content: center
+}
+.modal-head {
+    align-self: flex-start;
+    flex-direction: row;
+    padding: 2px 16px;
+    border: 1px solid $divider-color;
+    color: #fff;
+    background-color: teal;
+    font-size: 1rem;
+    min-width: 100%;
 }
 
+.modal-bod {
+  padding: 2px 16px;
+  width: 100%;
+  }
+
+.modal-foot {
+    padding: 2px 16px;
+    border-top: 1px solid $divider-color;
+    color: $primary-text-color;
+    text-align: center;
+    align-self: flex-end;
+}
 // * Add Animation */
 @-webkit-keyframes animatetop {
     from {top:-300px; opacity:0}
@@ -285,29 +323,33 @@ section {
     to {top:0; opacity:1}
 }
 
-// * The Close Button */
-
-
-// * End of Close Button //
-
-.modal-head {
-    padding: 2px 16px;
-    border: 1px solid $divider-color;
-    color: #fff;
-    background-color: teal;
+// * Boards link */
+.boards-link{
+    transition: background-color .3s;
+    transition-property: background-color;
+    transition-duration: 0.3s;
+    transition-timing-function: initial;
+    transition-delay: initial;
     font-size: 1rem;
+    color: #fff;
+    display: block;
+    padding: 0 15px;
+    cursor: pointer;
 }
+// * End of Boards link //
 
-.modal-bod {padding: 2px 16px;}
+// *** Login / Signup *****/
+.auth div{
+  display: flex; 
+  justify-content: center; 
+  text-align: center; 
+  flex-flow: wrap row;
+  width: 100%;
 
-.modal-foot {
-    padding: 2px 16px;
-    border-top: 1px solid $divider-color;
-    color: $primary-text-color;
-    text-align: center;
 }
+// ** end of Login *** /
 
-// *****  End of Modal ***** /
+
 .center-block{
   display: flex;
   justify-content: center;
@@ -370,3 +412,62 @@ border-color: #eed3d7;
 }
 // ** End of Forms ****
 
+// ** Callout Dialogs ** 
+.callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+.callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.callout p:last-child {
+    margin-bottom: 0;
+}
+.callout code {
+    border-radius: 3px;
+}
+.callout+.callout {
+    margin-top: -5px;
+}
+.callout-default {
+    border-left-color: #777;
+}
+.callout-default h4 {
+    color: #777;
+}
+.callout-primary {
+    border-left-color: #428bca;
+}
+.callout-primary h4 {
+    color: #428bca;
+}
+.callout-success {
+    border-left-color: #5cb85c;
+}
+.callout-success h4 {
+    color: #5cb85c;
+}
+.callout-danger {
+    border-left-color: #d9534f;
+}
+.callout-danger h4 {
+    color: #d9534f;
+}
+.callout-warning {
+    border-left-color: #f0ad4e;
+}
+.callout-warning h4 {
+    color: #f0ad4e;
+}
+.callout-info {
+    border-left-color: #5bc0de;
+}
+.callout-info h4 {
+    color: #5bc0de;
+}
+
+// ** End of Callout

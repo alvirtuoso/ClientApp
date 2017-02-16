@@ -2,22 +2,34 @@
     <div class="nav-wrapper">
       <a href="#" materialize="sideNav" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
+        <li *ngIf="isLoggedIn" (click)="logout()"><a><i class="material-icons">power_settings_new</i></a></li>
+        <li><a [routerLink]="['']">Home</a></li>
         <li><a [routerLink]="['about']">About</a></li>
         <!--<li><a [routerLink]="['board-form']" class="waves-effect waves-light"><i class="material-icons">add</i></a></li>-->
         <li><a (click)="toggleNewBoard()" class="waves-effect waves-light">New</a></li>
+        <li><a materialize="dropdown" [materializeParams]="[{hover: true}]" class="dropdown-button" data-activates="boards">Boards<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a (click)="goProfile()"><i class="material-icons">perm_identity</i></a></li>
       </ul>
-      <ul class="side-nav" id="mobile-nav">
-        <!--<li><a [routerLink]="['board']" class="waves-effect waves-light"><i class="material-icons">add</i></a></li>-->
-        <li><a [routerLink]="['about']">About</a></li>
-        <!--<li><a (click)="toggleNewBoard()" class="btn-floating btn-large waves-effect waves-light teal"><i class="material-icons">add</i></a></li>-->-->
 
+      <ul class="side-nav" id="mobile-nav">
+        <li><a [routerLink]="['']">Home</a></li>
+        <li><a [routerLink]="['about']">About</a></li>
+        <li><a (click)="toggleNewBoard()" class="waves-effect waves-light">New</a></li>
+        <li><a materialize="dropdown" [materializeParams]="[{hover: true}]" class="dropdown-button" data-activates="boards">Boards<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
 
     </div>
   </nav>
+ <!-- Dropdown menu for boards selection -->
+ <ul id="boards" class="dropdown-content">
+  <!--<li class="boards-link" (click)="loadCardsByBoardId(board.board_Id)" *ngFor="let board of boards; let i = index; trackBy board?.board_Id">{{board.title}}</li>-->
+  <li class="boards-link" *ngFor="let board of boards; let i = index; trackBy board?.board_Id"><a [routerLink]= "['/board', board.board_Id]">{{board.title}}</a></li>
+</ul>
+
+ <!-- Dropdown ends ----- >
 
 <!-- The Modal -->
-<div *ngIf="showNewBoard.isOn" id="myModal" class="modalNew">
+<div *ngIf="showNewBoard.isOn" id="myModal">
   <!-- Modal content -->
  <board-form [showCreateBoard]= "showNewBoard"></board-form>
 

@@ -21,12 +21,14 @@ export class CardComponent implements OnInit, AfterViewInit {
   constructor(private dragulaService: DragulaService, overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal, private renderer: Renderer, private cardSvc: CardService, private itemSvc: ItemService, private global: Global)
   {
     overlay.defaultViewContainer = vcRef;
-    dragulaService.setOptions('bag-one', {
-      revertOnSpill: true
-    });
+
+    const bag: any = this.dragulaService.find('bagOne');
+    if (bag !== undefined ) this.dragulaService.destroy('bagOne');
+    this.dragulaService.setOptions('bagOne', { revertOnSpill: true }); 
     dragulaService.drop.subscribe((value) => {
       this.onDrop(value.slice(1));
     });
+
   }
 
   enableTitleEdit: boolean = false;
@@ -66,6 +68,7 @@ export class CardComponent implements OnInit, AfterViewInit {
     if(this.boardId){
      this.getCardsByBoardId(this.boardId);
     }
+    console.log('card.component boardID', this.boardId);
   }
 
   ngAfterViewInit(){

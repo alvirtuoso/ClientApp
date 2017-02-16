@@ -12,13 +12,13 @@ export class UserService extends Repository{
 
         super(request);
     }
-    create(body: Object): Observable<User[]>{
-        let bodyString = JSON.stringify(body);
-        let headers      = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
-        let options       = new RequestOptions({ headers: headers });
+    Add(email: string, displayName: string ): Observable<User>{
+        let params = "email=" + email + "&displayName=" + displayName;
+        let headers    = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        let options    = new RequestOptions({ headers: headers });
 
-        return this.request.post(this.apiUrl, bodyString, options)
-                        .do( res => console.log('user.service.create() HTTP response:', res))
+        return this.request.post(`${this.apiUrl}/add`, params, options)
+                        .do( res => console.log('user.service.Add() HTTP response:', res.json()))
                          .map((res:Response) => res.json())
                          .catch(this.handleError);
 
@@ -30,7 +30,7 @@ export class UserService extends Repository{
                     .map((res: Response) => res.json())
                     .catch(this.handleError);
     }
-    updateRequest(body: Object): Observable<User[]>{
+    updateRequest(body: Object): Observable<User>{
         let bodyString = JSON.stringify(body);
         let headers      = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
         let options       = new RequestOptions({ headers: headers });
@@ -41,5 +41,19 @@ export class UserService extends Repository{
                          .catch(this.handleError);
     }
 
+    getUserByEmail(email: string): Observable<User>{
+        return this.request.get(`${this.apiUrl}/${email}`)
+                    .do( res => console.log('getUserByEmail HTTP response:', res))
+                    .map((res: Response) => res.json())
+                    .catch(this.handleError);
+    }
+
+    isExisting (email: string): Observable<Boolean>{
+        let params = "email=" + email;
+    return this.request.get(`${this.apiUrl}/isExisting/${email}`)
+                .do( res => console.log('user IsExisting HTTP response:', res))
+                .map((res: Response) => res.json())
+                .catch(this.handleError);
+    }
 
 }

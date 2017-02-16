@@ -8,7 +8,7 @@
             </div>
             <div class="header-button" *ngIf="!hideme[card.sort_Order]">
               <i class="material-icons" (click)="hideme[card.sort_Order] = !hideme[card.sort_Order]">add</i>
-              <ul  [attr.id]="card.card_Id" class="dropdown-content">
+              <ul [attr.id]="card.card_Id" class="dropdown-content">
                 <li><span (click)="deleteCard(card.card_Id, card.name, i)">Delete</span></li>
                 <li><span>Edit</span></li>
               </ul>
@@ -17,11 +17,11 @@
             </div>
           </div>
           <div class="card-header"*ngIf="hideme[card.card_Id]">
-             <div class="header-item"><input #namebox class="input12" [(ngModel)]="card.name"  (keyup.enter)="onEnter({'namebox': namebox.value, 'cardid': cardid.value});toggleEditTitle(card.card_Id);"> </div>
+             <div class="header-item"><input autofocus #namebox class="input12" [(ngModel)]="card.name"  (keyup.enter)="onEnter({'namebox': namebox.value, 'cardid': cardid.value});toggleEditTitle(card.card_Id);"> </div>
              <div class="header-button" (click)="toggleEditTitle(card.card_Id)"><i class="material-icons right">close</i></div>
              <input type="hidden" #cardid [value]="card.card_Id" >
           </div>
-        <div [attr.title]="card.card_Id" class="items"[dragula]='"bag-one"' [dragulaModel]='card.items'>
+        <div [attr.title]="card.card_Id" class="items"[dragula]="bagOne" [dragulaModel]='card.items'>
           <div class="item-form" *ngIf="hideme[card.sort_Order]">
             <form (ngSubmit)="onSubmit(itemForm, card)" #itemForm="ngForm">
               <input name="title" id="title" type="text" ngModel required>
