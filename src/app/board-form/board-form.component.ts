@@ -9,13 +9,17 @@ import { Global } from '../shared/global';
 })
 export class BoardFormComponent implements OnInit {
   @Input() showCreateBoard;
+  @Input() newTitle: string;
   // showCreateBoard: { isOn: boolean; } = { isOn: true };
 
   board = new Board();
   errorMessage: string;
   hasError:boolean = false;
   isPublic = true;
-  constructor(private router: Router, private boardSvc: BoardService, private global: Global) { }
+
+  constructor(private router: Router, private boardSvc: BoardService, private global: Global) {
+    this.newTitle = "New Board";
+   }
 
   ngOnInit() {
 

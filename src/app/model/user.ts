@@ -1,6 +1,6 @@
 export class User {
 
-    constructor(public user_id: number
+    constructor(public user_Id: number
                 , public active: boolean
                 , public email?: string
                 , public address?: string
@@ -11,7 +11,7 @@ export class User {
                 , public first_Name?: string
                 , public last_Name?: string
                 , public membership_Id?: string
-                , public display_name?: string) {
+                , public display_Name?: string) {
 
     }
 }

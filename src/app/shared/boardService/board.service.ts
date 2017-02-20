@@ -23,12 +23,14 @@ export class BoardService extends Repository{
                          .map((res:Response) => res.json())
                          .catch(this.handleError);
     }
+    // Retrieves all boards from the DB
     getAll(): Observable<Board[]>{
          return this.request.get(this.apiUrl)
                     .do( res => console.log('board.service.getAll() HTTP response:', res))
                     .map((res: Response) => res.json())
                     .catch(this.handleError);
     }
+    // Updates board to the database
     updateRequest(body: Board): Observable<Board>{
         let bodyString = JSON.stringify(body);
         let headers      = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });

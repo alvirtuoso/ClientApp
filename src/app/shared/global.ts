@@ -7,7 +7,7 @@ export class Global {
      public apiCardUrl:string = "http://localhost:5000/api/card";
      public apiItemUrl:string = "http://localhost:5000/api/item";
      public apiBoardUrl:string = "http://localhost:5000/api/board";
-
+     public apiUserUrl:string = "http://localhost:5000/api/user";
     // For Debugging /Testing
     public ownerid: string = "d705fa4d-23cc-46ca-8a23-e7257a72bca4"; // Replace with login info
     // end Debugging /Tesing

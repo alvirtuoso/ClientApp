@@ -27,5 +27,5 @@ import '../node_modules/materialize-css/bin/materialize.css';
 // You can import js, ts, css, sass, ...
 // import '../node_modules/jQuery/src/jquery.js';
 import './public/style.js';
-
+import './style/w3.css';
 import 'dragula/dist/dragula.css';

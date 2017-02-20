@@ -1,8 +1,43 @@
-<div class="modal-container modal-center">
+
+<app-dialog [(visible)]="showCreateBoard.isOn" [newTitle]="'New Board'">
+
+    <div class="modal-bod">
+      <div class="row">
+
+        <form class="col s12" (ngSubmit)="onSubmit(boardForm)" #boardForm="ngForm">
+          <div class="row">
+              <div class="input-field col s12">
+                <input name="title" id="title" type="text" ngModel required>
+                <label for="title">Title</label>
+              </div>
+          </div>
+          <div class="row">
+            <div >
+              <input name="classification_id" class="filled-in" type="checkbox" id="public" value="faad67d2-7ec6-494e-a4ef-ac126481f77f" [checked]="isPublic" (change)="isPublic = $event.target.checked" />
+              <label for="public">Public</label>
+            </div>
+          </div>
+          <div class="modal-foot">
+            <button type="submit"  class="waves-effect waves-light btn" [disabled]="!boardForm.form.valid">Add</button>
+          </div>
+        </form>
+        <p class="ui-state-error-text" *ngIf="hasError">
+          Error: {{errorMessage}}
+        </p>
+
+      </div>
+    </div>
+  <!--<button (click)="showCreateBoard.isOn = !showCreateBoard.isOn" class="header-button">Cancel</button>-->
+</app-dialog>
+
+<!--<div class="modal-container modal-center">
   <div *ngIf="showCreateBoard.isOn" class="modal-block modal-width">
      <div class="modal-head">
 
-      <div (click)="closeBoard()"><div class="hover-pointer"><i class="material-icons right">close</i></div>
+      <div (click)="closeBoard()">
+        <div class="hover-pointer">
+          <i class="material-icons right">close</i>
+        </div>
         New Board
       </div>
     </div>
@@ -15,20 +50,12 @@
                 <input name="title" id="title" type="text" ngModel required>
                 <label for="title">Title</label>
               </div>
-              <!--<div [hidden]="title.valid || title.pristine"
-                  class="alert alert-error">
-                Name is required
-              </div>-->
           </div>
           <div class="row">
             <div class="col s6">
               <input name="classification_id" class="filled-in" type="checkbox" id="public" value="faad67d2-7ec6-494e-a4ef-ac126481f77f" [checked]="isPublic" (change)="isPublic = $event.target.checked" />
               <label for="public">Public</label>
             </div>
-            <!--<div class="col s12">
-              <input name="classification_id" type="checkbox" id="team" value="30c968cb-5686-444d-b138-21d90d15f1ca" [checked]="!isPublic" (change)="isPublic = $event.target.checked" />
-              <label for="team">Team</label>
-            </div>-->
           </div>
           <div class="modal-foot">
             <button type="submit"  class="waves-effect waves-light btn" [disabled]="!boardForm.form.valid">Add</button>
@@ -41,4 +68,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->

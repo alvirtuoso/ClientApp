@@ -1,6 +1,6 @@
 <div class="auth">
   <div>
-    <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+    <form #formData='ngForm' (ngSubmit)="loginPassword(formData)">
         <p>
             <label> Enter email address
                 <input type="text" name="email" (ngModel)="email" requred>

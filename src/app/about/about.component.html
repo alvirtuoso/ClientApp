@@ -1,10 +1,20 @@
-<h3 style="color: ghostwhite; text-align: center">
+<div>
+  <h3>Test Area For Now</h3>
+<h3 style="text-align: center">
   Someday is the day that never happens. If your day becomes Someday then this app is for you!
 </h3>
 <!--
 <button (click)="onTestBoardCards()">Go to Board</button>
 <a [routerLink]="['board', '2b6aa40b-84b6-4088-99e9-1aa96f093572']">Board</a>-->
 
+<button (click)="showDialog = !showDialog" class="btn">Open</button>
 <p>
- 
+  this is true oko oko
 </p>
+<app-dialog [(visible)]="showDialog" [newTitle]="'Create Board'">
+  <h1>Hello World</h1>
+  <button (click)="showDialog = !showDialog" class="btn">Close</button>
+</app-dialog>
+
+
+</div>

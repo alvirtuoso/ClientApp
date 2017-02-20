@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from '../model/user';
 import { UserService } from '../shared/userService/user.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -16,9 +16,11 @@ export class UserProfileComponent implements OnInit {
     display_name: string;
   email: string;
   user_id: string;
-  private sub: any;
+  private observe: any;
   // userForm: any;
   usr: User;
+  first: string;
+   aUser = {first: '', last: '', email: '', display: '', cell: ''};
   constructor(private router: Router, private route: ActivatedRoute, private userSvc: UserService) {
             this.userForm = new FormGroup({
             fname: new FormControl('', CustomValidators.rangeLength([0, 50])),
@@ -28,21 +30,36 @@ export class UserProfileComponent implements OnInit {
             displayName: new FormControl('',Validators.required)
         });
   }
-
+  ngOnDestroy(){
+    this.observe.unsubscribe();
+  }
   ngOnInit() {
   
-    this.sub = this.route.params
-        // .do(params => console.log('paaemal', params['user']))
-        // .subscribe(params => this.email = params['user']);
+    this.observe = this.route.params
       .switchMap((param: Params) => this.userSvc.getUserByEmail('wedneer@yahoo.com'))//param['user']))
-      // .finally(() => console.log('finally', this.usr.email)) // not firing
-     .subscribe((usr:User) => {this.usr = usr; this.email= this.usr.email;});
+      // Somehow the this.usr doesn't get bound when used in the template. Have to create another object userObj to hold values
+      // Perhaps, the this.usr is still subscribed to an observable of ActiveRoute or maybe the switchMap is the culprit by locking in this.usr??
+     .subscribe((usr:User) => {
+       this.usr = usr;  
+       this.aUser.first = this.usr.first_Name;
+       this.aUser.last = this.usr.last_Name;
+       this.aUser.email = this.usr.email;
+      this.aUser.display = this.usr.display_Name;
+       this.aUser.cell = this.usr.cell;
+      });
 
   }
   // Save info. Performs validation first.
   saveUser() {
     if (this.userForm.dirty && this.userForm.valid) {
       // Save to database
+      this.usr.first_Name = this.aUser.first;
+      this.usr.last_Name = this.aUser.last;
+      this.usr.email = this.aUser.email;
+      this.usr.cell = this.aUser.cell;
+      this.usr.display_Name = this.aUser.display;
+      // Save to  database
+      this.userSvc.updateByUser(this.usr);
 
     }
   }

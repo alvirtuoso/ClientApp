@@ -15,12 +15,12 @@ export class NavComponent implements OnInit {
   showNewBoard: { isOn: boolean; } = { isOn: false };
   boards: Board[] = [];
   isLoggedIn: Boolean = true;
-  
+  titleHeader: string  = "Create Board";
   constructor(private userSvc:UserService, private boardSvc: BoardService, private af: AngularFire, private router: Router) { }
 
   ngOnInit() {
     this.boardSvc.getAll()
-    .do(resp => console.log('boards: ', resp))
+    .do(resp => {this.boards = resp; console.log('boards: ', resp)})
     .subscribe(resp => this.boards = resp);
 
     // Check user auth state
@@ -45,6 +45,7 @@ export class NavComponent implements OnInit {
  // Navigate to user' profile page
  goProfile(){
    this.af.auth.subscribe(authState => {
+     // If logged in go to profile page
      if(authState){
        this.router.navigate(['/profile', authState.auth.email ]);
      }

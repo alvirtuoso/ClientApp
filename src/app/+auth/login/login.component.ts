@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../../shared/userService/user.service';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 
 @Component({
@@ -8,13 +9,13 @@ import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private af: AngularFire, private router: Router) { }
+  constructor(private af: AngularFire, private router: Router, private userSvc: UserService) { }
 
   ngOnInit() {
   }
 
 // Login with username and password
-  onSubmit(formData) {
+  loginPassword(formData) {
     if(formData.valid) {
       // console.log(formData.value);
       this.af.auth.login({
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
       }).then(
         (success) => {
         console.log('Login Success: ', success);
-        this.router.navigate(['', formData.value.email]); // redirect to home
+        this.saveUserToDb(); // Saves to database only if user does not exists and redirects to home
       }).catch(
         (err) => {
         console.log('Login Error: ', err);
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
     }).then(
         (success) => {
         console.log('Login Success: ', success);
-        this.router.navigate(['']);//(['/profile', this.af.auth.getAuth().auth.email]);
+        this.saveUserToDb(); // Save to db if user does not exists and redirect to home
       }).catch(
         (err) => {
         console.log('Login Error: ', err);
@@ -51,5 +52,13 @@ export class LoginComponent implements OnInit {
 // Logout user. Applies to both google or email-pwd authentication
   logout() {
     this.af.auth.logout();
+  }
+
+ // Saves user to the Db if it doesn't exist then redirects to home.
+  private saveUserToDb():void{
+        this.userSvc.Add(this.af.auth.getAuth().auth.email, this.af.auth.getAuth().auth.displayName)
+        .finally(() => this.router.navigate([''])) // redirect to home
+        .subscribe((usr)=> {console.log('saveUserToDb in nav.component', usr)});
+        this.router.navigate(['']);// Redirect to home
   }
 }

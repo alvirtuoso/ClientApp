@@ -231,7 +231,7 @@ section {
 
   .header-button{
     float: right;
-    margin-top: -22px;
+
   }
 
   .hover-pointer{
@@ -470,4 +470,13 @@ border-color: #eed3d7;
     color: #5bc0de;
 }
 
-// ** End of Callout
+// ** End of Callout **/
+
+// ** W3.css custom extentions ** /
+
+.w3-light-red{
+  background-color: $nav-menu-color;
+  color: white;
+}
+
+// ** end of w3css custom ** /
