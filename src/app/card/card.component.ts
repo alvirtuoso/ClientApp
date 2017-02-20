@@ -117,7 +117,6 @@ export class CardComponent implements OnInit, AfterViewInit {
 
 // Delete card by id
 deleteCard(card_id: string, name: string, i: number){
-  console.log('index of card:', i);
   var deleteByIdUrl = `${this.global.apiCardUrl}/delete/${card_id}`;
       this.modal.confirm()
         .size('sm')
