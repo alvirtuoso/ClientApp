@@ -18,7 +18,7 @@ import { routing } from './app.routing';
 // Third party modules
 import { MaterializeModule } from 'angular2-materialize';
 import { ModalModule } from 'angular2-modal';
-// import { VexModalModule } from 'angular2-modal/plugins/vex';
+import { ClarityModule } from 'clarity-angular';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import {DragulaModule, DragulaService} from 'ng2-dragula/ng2-dragula';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
@@ -61,6 +61,7 @@ const firebaseAuthConfig = {
     FormsModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
+    ClarityModule.forRoot(),
     BootstrapModalModule,
     MaterializeModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),

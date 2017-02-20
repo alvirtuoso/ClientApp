@@ -4,8 +4,6 @@
       <div class="card" *ngFor="let card of cards; let i = index; trackBy card?.card_Id">
           <div class="card-header" *ngIf="!hideme[card.card_Id]">
             <div class="header-item bottomborder" (click)="toggleEditTitle(card.card_Id)">{{card.name}}
-
-            </div>
             <div class="header-button" *ngIf="!hideme[card.sort_Order]">
               <i class="material-icons" (click)="hideme[card.sort_Order] = !hideme[card.sort_Order]">add</i>
               <ul [attr.id]="card.card_Id" class="dropdown-content">
@@ -15,6 +13,8 @@
               <a materialize="dropdown" [materializeParams]="[{hover: true}]" class="dropdown-button" [attr.data-activates]="card.card_Id"><i class="material-icons">arrow_drop_down</i></a>
 
             </div>
+            </div>
+
           </div>
           <div class="card-header"*ngIf="hideme[card.card_Id]">
              <div class="header-item"><input autofocus #namebox class="input12" [(ngModel)]="card.name"  (keyup.enter)="onEnter({'namebox': namebox.value, 'cardid': cardid.value});toggleEditTitle(card.card_Id);"> </div>
