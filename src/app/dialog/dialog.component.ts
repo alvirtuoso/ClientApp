@@ -20,6 +20,7 @@ export class DialogComponent implements OnInit {
   @Input() closable = true;
   @Input() visible: boolean;
   @Input() newTitle: string = "New";
+  @Input() subTitle: string;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() { }

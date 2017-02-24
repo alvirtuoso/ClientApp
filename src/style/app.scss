@@ -13,9 +13,11 @@ section {
   @include linear-gradient(to top, $primary-color-light, $offWhite);
 }
 .am-container{
-  padding: 6px 6px;
-  background-color: teal;
+    padding: 0.01em 16px;
+    overflow: auto;
+    min-width: 100%;
 }
+
 .completed {
     text-decoration: line-through;
 }
@@ -155,7 +157,7 @@ section {
   }
 }
 
-.card {
+.am-card {
   background-color: $card-background;
   border: $card-border;
   border-radius: $base-border-radius;
@@ -166,7 +168,7 @@ section {
   margin: 10px 5px;
   position: relative;
   transition: all 0.2s ease-in-out;
-
+  min-height: 300px;
   .card-image {
     background-color: $card-image-hover-color;
     height: 150px;
@@ -309,7 +311,7 @@ section {
 
 .modal-foot {
     padding: 2px 16px;
-    border-top: 1px solid $divider-color;
+    // border-top: 1px solid $divider-color;
     color: $primary-text-color;
     text-align: center;
     align-self: flex-end;

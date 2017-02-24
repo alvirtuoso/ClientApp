@@ -23,9 +23,16 @@ import 'angular2-materialize';
 
 import '../node_modules/materialize-css/bin/materialize.css';
 
+// Clarity UX
+import "mutationobserver-shim/dist/mutationobserver.min.js";
+import '@webcomponents/custom-elements/custom-elements.min.js';
+import 'clarity-icons';
+import 'clarity-ui/clarity-ui.min.css';
+
+
 // Other vendors for example jQuery, Lodash or Bootstrap
 // You can import js, ts, css, sass, ...
 // import '../node_modules/jQuery/src/jquery.js';
 import './public/style.js';
-import './style/w3.css';
+
 import 'dragula/dist/dragula.css';

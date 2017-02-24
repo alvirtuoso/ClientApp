@@ -5,6 +5,7 @@ import { BoardComponent } from './board/board.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -12,7 +13,7 @@ export const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'board/:id', component: BoardComponent },
    { path: 'profile/:user', component: UserProfileComponent },
-  { path: 'test', component: UserProfileComponent },
+  // { path: 'test', component: NavigationComponent },
    // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

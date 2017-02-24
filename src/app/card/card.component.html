@@ -1,10 +1,10 @@
 <div *ngIf="errorMessage">Error: {{errorMessage}}</div>
 
 <div class="cards" *ngIf="cards.length > 0">
-      <div class="card" *ngFor="let card of cards; let i = index; trackBy card?.card_Id">
+      <div class="am-card" *ngFor="let card of cards; let i = index; trackBy card?.card_Id">
           <div class="card-header" *ngIf="!hideme[card.card_Id]">
             <span (click)="toggleEditTitle(card.card_Id)">{{card.name}}</span>
-            <!--<div class="header-item bottomborder" (click)="toggleEditTitle(card.card_Id)">{{card.name}}-->
+
             <div class="header-button" *ngIf="!hideme[card.sort_Order]">
 
               <i class="material-icons" (click)="hideme[card.sort_Order] = !hideme[card.sort_Order]">add</i>
@@ -15,17 +15,16 @@
               <a materialize="dropdown" [materializeParams]="[{hover: true}]" class="dropdown-button" [attr.data-activates]="card.card_Id"><i class="material-icons">arrow_drop_down</i></a>
 
             </div>
-            <!--</div>-->
 
           </div>
           <div class="card-header"*ngIf="hideme[card.card_Id]">
              <div class="header-item">
-               
-                 <input autofocus #namebox class="input12" [(ngModel)]="card.name"  (keyup.enter)="onEnter({'namebox': namebox.value, 'cardid': cardid.value});toggleEditTitle(card.card_Id);"> 
-              
+
+                 <input autofocus #namebox class="input12" [(ngModel)]="card.name"  (keyup.enter)="onEnter({'namebox': namebox.value, 'cardid': cardid.value});toggleEditTitle(card.card_Id);">
+
                <div class="header-button" (click)="toggleEditTitle(card.card_Id)"><i class="material-icons right">close</i></div>
              </div>
-             
+
              <input type="hidden" #cardid [value]="card.card_Id" >
           </div>
         <div [attr.title]="card.card_Id" class="items"[dragula]="bagOne" [dragulaModel]='card.items'>
@@ -46,7 +45,7 @@
           </div>
 
         </div>
- <!--[ngClass]="{fifty: items_count.value > 1, hundred: items_count.value < 1}"-->
+
     </div>
       <div class="btn-card-add" (click)="addNew()">
           +
@@ -54,5 +53,6 @@
      <div class="spacer"></div>
 
 </div>
+
 
 

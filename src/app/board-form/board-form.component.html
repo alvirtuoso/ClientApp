@@ -1,71 +1,25 @@
 
-<app-dialog [(visible)]="showCreateBoard.isOn" [newTitle]="'New Board'">
-
     <div class="modal-bod">
-      <div class="row">
 
-        <form class="col s12" (ngSubmit)="onSubmit(boardForm)" #boardForm="ngForm">
-          <div class="row">
-              <div class="input-field col s12">
+      <app-dialog [(visible)]="showCreateBoard.isOn" [newTitle]="'New Board'">
+        <form (ngSubmit)="onSubmit(boardForm)" #boardForm="ngForm">
+          <div class="modal-bod">
+              <!--<div class="input-field col s12">-->
                 <input name="title" id="title" type="text" ngModel required>
                 <label for="title">Title</label>
-              </div>
+              <!--</div>-->
           </div>
-          <div class="row">
+          <div class="modal-bod">
             <div >
-              <input name="classification_id" class="filled-in" type="checkbox" id="public" value="faad67d2-7ec6-494e-a4ef-ac126481f77f" [checked]="isPublic" (change)="isPublic = $event.target.checked" />
+              <input name="classification_id" type="checkbox" id="public" value="faad67d2-7ec6-494e-a4ef-ac126481f77f" [checked]="isPublic" (change)="isPublic = $event.target.checked" />
               <label for="public">Public</label>
             </div>
           </div>
           <div class="modal-foot">
-            <button type="submit"  class="waves-effect waves-light btn" [disabled]="!boardForm.form.valid">Add</button>
+            <button type="submit"  [disabled]="!boardForm.form.valid">Add</button>
           </div>
         </form>
-        <p class="ui-state-error-text" *ngIf="hasError">
-          Error: {{errorMessage}}
-        </p>
+      </app-dialog>
 
-      </div>
     </div>
-  <!--<button (click)="showCreateBoard.isOn = !showCreateBoard.isOn" class="header-button">Cancel</button>-->
-</app-dialog>
 
-<!--<div class="modal-container modal-center">
-  <div *ngIf="showCreateBoard.isOn" class="modal-block modal-width">
-     <div class="modal-head">
-
-      <div (click)="closeBoard()">
-        <div class="hover-pointer">
-          <i class="material-icons right">close</i>
-        </div>
-        New Board
-      </div>
-    </div>
-    <div class="modal-bod">
-      <div class="row">
-
-        <form class="col s12" (ngSubmit)="onSubmit(boardForm)" #boardForm="ngForm">
-          <div class="row">
-              <div class="input-field col s12">
-                <input name="title" id="title" type="text" ngModel required>
-                <label for="title">Title</label>
-              </div>
-          </div>
-          <div class="row">
-            <div class="col s6">
-              <input name="classification_id" class="filled-in" type="checkbox" id="public" value="faad67d2-7ec6-494e-a4ef-ac126481f77f" [checked]="isPublic" (change)="isPublic = $event.target.checked" />
-              <label for="public">Public</label>
-            </div>
-          </div>
-          <div class="modal-foot">
-            <button type="submit"  class="waves-effect waves-light btn" [disabled]="!boardForm.form.valid">Add</button>
-          </div>
-        </form>
-        <p class="ui-state-error-text" *ngIf="hasError">
-          Error: {{errorMessage}}
-        </p>
-
-      </div>
-    </div>
-  </div>
-</div>-->

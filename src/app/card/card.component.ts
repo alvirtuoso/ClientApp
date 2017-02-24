@@ -40,6 +40,7 @@ export class CardComponent implements OnInit, AfterViewInit {
   cardNameOnEdit: string;
   hideme:any = {};
   isDelete: boolean = false;
+  deleteNow: boolean = false;
   newCardName = '';
 
   // Edits a Card's name
@@ -117,12 +118,15 @@ export class CardComponent implements OnInit, AfterViewInit {
 
 // Delete card by id
 deleteCard(card_id: string, name: string, i: number){
+  this.deleteNow = false;
+
   var deleteByIdUrl = `${this.global.apiCardUrl}/delete/${card_id}`;
       this.modal.confirm()
-        .size('sm')
-        .title('Continue deleting this card?')
+        .size('lg')
+        .title('Confirm Deletion')
+        .showClose(true)
         .body(`
-           <h5>"${name}"</h5>
+           <h2>"${name}"</h2>
         `)
             .okBtn('Delete')
             .cancelBtn('Cancel')
@@ -132,7 +136,6 @@ deleteCard(card_id: string, name: string, i: number){
             .then(result => {this.cardSvc.delete(deleteByIdUrl); this.cards.splice(i, 1)}) // if were here ok was clicked.
             .catch(err => console.log('Cancelled Deletion', err)); // if were here it was cancelled (click or non block click)
 
-  // this.cardSvc.delete(id, deleteByIdUrl);
 }
 // Add new Item to DB
   onSubmit(form:any, card:Card):void{

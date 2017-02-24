@@ -1,4 +1,4 @@
-.overlay {
+.dialog-overlay {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -6,6 +6,7 @@
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999; 
+  opacity: 0.5;
 }
 
 .dialog {
@@ -39,6 +40,12 @@
     font-size: 1rem;
     min-width: 100%;    
 }
+.dialog-content{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
 .dialog_x {
   border: 0;
   background: none;
@@ -47,6 +54,8 @@
   top: 8px;
   right: 8px;
   font-size: 1.3em;
+  padding-top: 5px;
+  padding-right: 15px;
 }
 .dialog_x:hover,
 .dialog_x:focus {

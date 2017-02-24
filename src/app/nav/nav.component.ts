@@ -37,7 +37,7 @@ export class NavComponent implements OnInit {
     //   }
     // });
   }
-// .subscribe((data) => {this.board = data; this.router.navigate(['/board', this.board.board_Id])}, err => this.errorMessage = <any>err);
+
   toggleNewBoard(){
     this.showNewBoard.isOn = !this.showNewBoard.isOn;
   }
@@ -50,6 +50,12 @@ export class NavComponent implements OnInit {
        this.router.navigate(['/profile', authState.auth.email ]);
      }
    })
+ }
+ goHome(){
+   this.router.navigate(['']);
+ }
+ goAbout(){
+   this.router.navigate(['/about']);
  }
   logout(){
     this.af.auth.logout();

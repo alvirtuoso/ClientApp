@@ -38,6 +38,7 @@ import { AuthModule } from './+auth/auth.module';
 import { AuthGuard } from './+auth/auth-guard.service';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 // Must export the config
 export const firebaseConfig = {
@@ -82,7 +83,8 @@ const firebaseAuthConfig = {
     ItemComponent,
     // authComponents,
     UserProfileComponent,
-    DialogComponent
+    DialogComponent,
+    NavigationComponent
 ],
   providers: [
     AlertService,
