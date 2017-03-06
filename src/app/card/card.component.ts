@@ -41,7 +41,11 @@ export class CardComponent implements OnInit, AfterViewInit {
   hideme:any = {};
   isDelete: boolean = false;
   deleteNow: boolean = false;
+  itemDlgIsOpen: boolean = false;
   newCardName = '';
+  itemDlgTitle = '';
+  editableContent: string = 'test';
+  showEditor: boolean = false;
 
   // Edits a Card's name
   onEnter(value: any) {
@@ -77,7 +81,22 @@ export class CardComponent implements OnInit, AfterViewInit {
     // this.renderer.invokeElementMethod(this.namebox.nativeElement, 'focus', []);
   }
 
-// Handles drag drop of an item in a card. Only saves the dropping of an item into different card. Saving the item's index order is done in item.component
+/**
+ * Saves edited description text
+ * @param value Event data when content was changed
+ */
+saveEditable(value){
+  console.log('saveEdita', value.html);
+  if(this.item){
+    this.item.description = value.html;
+  }
+  // this.itemSvc.updateRequest(this.item).subscribe();
+}
+
+/**
+ * Handles drag drop of an item in a card. Only saves the dropping of an item into different card. Saving the item's index order is done in item.component
+ * @param args 
+ */
   onDrop(args) {
     let [el, target, source, sibling] = args;
     let targetCardId = target.title;
@@ -90,21 +109,28 @@ export class CardComponent implements OnInit, AfterViewInit {
     }
   }
 
-// Retrieves all cards
+/**
+ * Retrieves all cards
+ */
  getCards(){
     this.cardSvc.getAll().subscribe(cardlist => {this.cards = cardlist; console.log('cards: ', this.cards)},
                                     err => this.errorMessage = <any>err);
 
  }
 
- // FInd cards by Board's Id
+ /**
+  * FInd cards by Board's Id
+  * @param boardId 
+  */
   getCardsByBoardId(boardId:string){
     this.cardSvc.getCardsByBoardId(boardId).subscribe(cardList => {this.cards = cardList; console.log('cards: ', this.cards)},
                                       err => this.errorMessage = err);
 
   }
 
-// Adds new Card by boarder id
+ /**
+  * Adds new Card by boarder id
+  */
   addNew():void{
     // this.card = <Card>{name: form['name'].value, active: true, owner_id: "d705fa4d-23cc-46ca-8a23-e7257a72bca4", board_id: this.boardId};
     let card = new Card();
@@ -116,7 +142,12 @@ export class CardComponent implements OnInit, AfterViewInit {
     this.cardSvc.create(card).subscribe(newCard => this.cards.push(newCard), err => this.errorMessage = err);
   }
 
-// Delete card by id
+/**
+ * Delete card by id
+ * @param card_id 
+ * @param name 
+ * @param i 
+ */
 deleteCard(card_id: string, name: string, i: number){
   this.deleteNow = false;
 
@@ -137,7 +168,11 @@ deleteCard(card_id: string, name: string, i: number){
             .catch(err => console.log('Cancelled Deletion', err)); // if were here it was cancelled (click or non block click)
 
 }
-// Add new Item to DB
+  /**
+   * Add new Item to DB
+   * @param form 
+   * @param card 
+   */
   onSubmit(form:any, card:Card):void{
     event.preventDefault;
 
@@ -164,12 +199,29 @@ deleteCard(card_id: string, name: string, i: number){
 
   }
 
-  // Opens add new item box
+/**
+ * Opens the item dialog
+ * @param itemId  integer
+ */
+openItem(item:Item):void{
+  this.itemDlgIsOpen = true;
+  this.itemDlgTitle = item.title;
+  this.item = item;
+  console.log("dlg: ", item);
+}
+
+  /**
+   * Opens add new item box
+   * @param itemId 
+   */
   toggleNewItem(itemId: number){
     this.hideme[itemId] = !this.hideme[itemId];
   }
 
-  // Opens edit card box
+  /**
+   * Opens edit card box
+   * @param i string 
+   */
   toggleEditTitle(i: string){
     this.hideme[i] = !this.hideme[i];
   }

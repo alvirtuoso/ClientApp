@@ -22,6 +22,10 @@ import { ClarityModule } from 'clarity-angular';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import {DragulaModule, DragulaService} from 'ng2-dragula/ng2-dragula';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { QuillModule } from 'ngx-quill';
+
+// import {SliderModule} from 'primeng/primeng';
+
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { NavComponent } from './nav/nav.component';
@@ -67,6 +71,8 @@ const firebaseAuthConfig = {
     MaterializeModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     DragulaModule,
+    QuillModule,
+
     AuthModule,
     routing
   ],

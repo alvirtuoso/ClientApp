@@ -38,7 +38,7 @@
             </form>
           </div>
 
-          <div [attr.id]="item.item_Id" [attr.title]="i" class="card-item" *ngFor="let item of card.items; let i = index; trackBy item?.item_Id">
+          <div (click)="openItem(item)" [attr.id]="item.item_Id" [attr.title]="i" class="card-item" *ngFor="let item of card.items; let i = index; trackBy item?.item_Id">
 
               <!--{{item.title}} {{i}} so: {{item.sort_Order}} <i class="material-icons right">more_vert</i>-->
               <item [item]="item" [index]="i"></item>
@@ -53,6 +53,40 @@
      <div class="spacer"></div>
 
 </div>
+
+      <app-dialog [(visible)]="itemDlgIsOpen" [newTitle]="itemDlgTitle" [width_size]="'90%'">
+
+        <div class="row">
+          <div class="col s6" style="min-width: 60%; margin-left: 20px">
+            <label>Description</label>
+              <quill-editor [(ngModel)]="editableContent" (onContentChanged)= saveEditable($event)>
+                <div quill-editor-toolbar>
+                  <span class="ql-formats">
+                    <button class="ql-bold" [title]="'Bold'"></button>
+                    <button class="ql-italic" [title]="'Italic'"></button>
+                    <button class="ql-underline" [title]="'Underline'"></button>
+                  </span>
+
+                  <span class="gl-formats">
+                    <button class="ql-list" value="ordered"></button>
+                    <button class="ql-list" value="bullet"></button>
+                  </span>
+                </div>
+              </quill-editor>
+ 
+          </div>
+          <div class="col s4">
+            <div class="collection">
+              <a class="collection-item">Subscribe</a>
+              <a class="collection-item">Archive</a>
+              <a class="collection-item">Add Due Date</a>
+              <a class="collection-item">Attach Files</a>
+            </div>
+          </div>
+        </div>
+
+      </app-dialog>
+
 
 
 

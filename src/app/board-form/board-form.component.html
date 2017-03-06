@@ -1,7 +1,7 @@
 
     <div class="modal-bod">
 
-      <app-dialog [(visible)]="showCreateBoard.isOn" [newTitle]="'New Board'">
+      <app-dialog [(visible)]="showCreateBoard.isOn" [width_size]="'40%'" [newTitle]="'New Board'">
         <form (ngSubmit)="onSubmit(boardForm)" #boardForm="ngForm">
           <div class="modal-bod">
               <!--<div class="input-field col s12">-->

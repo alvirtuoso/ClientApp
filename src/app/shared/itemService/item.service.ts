@@ -41,7 +41,6 @@ constructor(private request: Http, private global: Global) {
     }
   // Updates an Item to the database
     updateRequest(item: Item): Observable<Item>{
-        let bodyString = JSON.stringify(item);
         let headers      = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
         let options       = new RequestOptions({ headers: headers });
 

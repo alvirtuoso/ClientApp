@@ -10,7 +10,7 @@ a {
     color: $link;
 }
 section {
-  @include linear-gradient(to top, $primary-color-light, $offWhite);
+  @include linear-gradient(to top, $primary-color-light, $offWhite); 
 }
 .am-container{
     padding: 0.01em 16px;
@@ -308,6 +308,9 @@ section {
   padding: 2px 16px;
   width: 100%;
   }
+.modal-confirm{
+  max-width: 40%;
+}
 
 .modal-foot {
     padding: 2px 16px;
