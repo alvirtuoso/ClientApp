@@ -1,13 +1,26 @@
 <div>
+
+<!--<input type="file"
+       ngFileSelect
+       [options]="options"
+       (onUpload)="handleUpload($event)"
+       (beforeUpload)="beforeUpload($event)">
+  <img src={{uploadFile}} width="100" height="100"/>     -->
+<hr />
   <h3>Test Area For Now</h3>
+
+  <img src="api/account/GetImageByAccountId/12345" alt="" />
 <h3 style="text-align: center">
   Someday is the day that never happens. If your day becomes Someday then this app is for you!
 </h3>
+<hr />
+<upload [param]="{itemId:'sampleItemIdddd'}"></upload>
+<!--<input debounce [delay]="3000" (func)="myfunction('inputtestDebounce value')" [(ngModel)]="editableContent" name="Debounce input">-->
 <div *ngIf="showEditor" [innerHTML]="editableContent"></div>
 
     <a (click)="showEditor = !showEditor">Edit</a>
     <div *ngIf="showEditor" style="max-width: 20%">
-      <quill-editor [(ngModel)]="editableContent" (onContentChanged)= saveEditable($event)>
+      <quill-editor [(ngModel)]="editableContent" debounce [delay]="2000" (onTextChange)="myfunction(editableContent)">
         <div quill-editor-toolbar>
           <span class="ql-formats">
             <button class="ql-bold" [title]="'Bold'"></button>

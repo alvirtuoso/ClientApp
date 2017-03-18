@@ -9,7 +9,7 @@ export class Item {
     public status_Id: number;
     public date_Modified?: Date;
     public sort_Order?:number;
-
+    public due_Date?: Date;
 
 
 }

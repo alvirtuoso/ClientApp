@@ -8,6 +8,7 @@ export class Global {
      public apiItemUrl:string = "http://localhost:5000/api/item";
      public apiBoardUrl:string = "http://localhost:5000/api/board";
      public apiUserUrl:string = "http://localhost:5000/api/user";
+     public dbDefaultDate: string = "0001-01-01T00:00:00";
     // For Debugging /Testing
     public ownerid: string = "d705fa4d-23cc-46ca-8a23-e7257a72bca4"; // Replace with login info
     // end Debugging /Tesing

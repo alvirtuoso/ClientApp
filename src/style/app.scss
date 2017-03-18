@@ -290,6 +290,7 @@ section {
 .modal-right{
   justify-content: flex-end
 }
+
 .modal-center{
   justify-content: center
 }
@@ -361,6 +362,9 @@ section {
   display: flex;
   justify-content: center;
   align-content: center;
+}
+.float-right{
+  float: right;
 }
 // *** Forms ****
 .ng-valid[required], .ng-valid.required  {

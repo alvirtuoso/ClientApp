@@ -7,7 +7,7 @@ import { Global } from '../shared/global'
 import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
 import { dragula, DragulaService } from 'ng2-dragula/ng2-dragula';
-
+import {IMyOptions, IMyDateModel} from 'mydatepicker';
 
 @Component({
   selector: 'card',
@@ -24,17 +24,32 @@ export class CardComponent implements OnInit, AfterViewInit {
 
     const bag: any = this.dragulaService.find('bagOne');
     if (bag !== undefined ) this.dragulaService.destroy('bagOne');
-    this.dragulaService.setOptions('bagOne', { revertOnSpill: true }); 
+    this.dragulaService.setOptions('bagOne', { revertOnSpill: true });
     dragulaService.drop.subscribe((value) => {
       this.onDrop(value.slice(1));
     });
 
   }
 
+/**
+ * Sets options for the date picker UI
+ */
+  private myDatePickerOptions: IMyOptions = {
+      // other options...
+      dateFormat: 'mm/dd/yyyy',
+      inline: true,
+      showTodayBtn: true,
+  };
+  
+  showDatePicker: boolean = false;
+  showUploadInput: boolean = false;
   enableTitleEdit: boolean = false;
+  date: string;
+  btnDate: string = 'Due Date';
+  index: number;
   cards: Card[] = [];
   card: Card;
-  item: Item;
+  anItem: Item; // gets initialized at openItem()
   items: Item[] = [];
   errorMessage: string;
   cardNameOnEdit: string;
@@ -44,11 +59,43 @@ export class CardComponent implements OnInit, AfterViewInit {
   itemDlgIsOpen: boolean = false;
   newCardName = '';
   itemDlgTitle = '';
-  editableContent: string = 'test';
+  editableContent: string;
   showEditor: boolean = false;
+  fileUploadParam:{itemId:string} = {itemId: ""};
+    /**
+     * dateChanged callback function called when the user select the date. This is mandatory callback
+     * in this option. There are also optional inputFieldChanged and calendarViewChanged callbacks.
+     * @param event
+     */
+    private onDateChanged(event: IMyDateModel) {
+      this.date = event.formatted;
+      this.btnDate = 'Close';
+      console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+      console.log('thisanitem OndateChanged', this.anItem);
+      if(this.anItem != null){
+        this.anItem.due_Date = new Date(this.date);
+        this.anItem.date_Modified = new Date();
+        this.itemSvc.updateRequest(this.anItem).subscribe();
+      }
+        // event properties are: event.date, event.jsdate, event.formatted and event.epoc
+       // console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+    }
+
+  /**
+   * Opens and closes the date picker
+   */
+  private toggleDate(){
+    if(this.btnDate == 'Close'){
+      this.btnDate = 'Due Date';
+    }
+    else{
+      this.btnDate = 'Close';
+    }
+    this.showDatePicker = !this.showDatePicker;
+  }
 
   // Edits a Card's name
-  onEnter(value: any) {
+  private onEnter(value: any) {
     this.card = new Card();
     // this.card.name = <string>value.namebox;
     // this.card.card_id = value.cardid;
@@ -85,17 +132,64 @@ export class CardComponent implements OnInit, AfterViewInit {
  * Saves edited description text
  * @param value Event data when content was changed
  */
-saveEditable(value){
-  console.log('saveEdita', value.html);
-  if(this.item){
-    this.item.description = value.html;
-  }
-  // this.itemSvc.updateRequest(this.item).subscribe();
+private onTextUpdate(value){
+  // if(this.anItem != null ){
+  //   this.anItem.description = value.html;
+  // }
+  this.anItem.description = this.editableContent;
+  console.log('description', this.anItem.description);
+  this.itemSvc.updateRequest(this.anItem).subscribe(item => this.reflectItemChangesToView);
+}
+
+/**
+ * Updates an item in display when updated in the server.
+ */
+private reflectItemChangesToView(){
+  console.log('reflectchanges', this.items[this.index].description);
+  this.items[this.index].description = this.anItem.description;
+    // for (var index = 0; index < this.items.length; index++) {
+    //   if (index == this.index) {
+    //     this.items[index].description = this.anItem.description;
+    //     console.log('reflectItemChanges: Found it', this.items[index].title)
+    //   }
+    // }
+}
+
+/**
+ * Opens the item dialog
+ * @param item  Item. Item that's open
+ * @param index number. Index position of the open item in the this.items array.
+ */
+private openItem(item:Item, index:number, card:Card):void{
+  this.editableContent = item.description;
+  this.index = index;
+  this.itemDlgIsOpen = true;
+  this.itemDlgTitle = item.title;
+  this.anItem = item;
+  this.card = card;
+  this.setDateDisplay(this.anItem);
+  this.fileUploadParam.itemId = item.item_Id;
+  console.log('newDate', item.description);
+}
+
+private  setDateDisplay(i: Item){
+   if(i != null){
+     if(i.due_Date.toString() == this.global.dbDefaultDate){
+        this.date = "";
+     }else{
+        var date = new Date(i.due_Date);
+        this.date = date.toLocaleDateString();
+        // var y = date.getFullYear();
+        // var m = date.getMonth();
+        // var d = date.getDay();
+        // this.dateModel = { date: { year: y, month: m, day: d } };
+     }
+   }
 }
 
 /**
  * Handles drag drop of an item in a card. Only saves the dropping of an item into different card. Saving the item's index order is done in item.component
- * @param args 
+ * @param args
  */
   onDrop(args) {
     let [el, target, source, sibling] = args;
@@ -104,7 +198,6 @@ saveEditable(value){
     console.log('target: ', target.title + ' src: ' + source.title);
     // Update only when dropping into different card
     if(target.title != source.title){
-      console.log('notequal');
       this.itemSvc.updateItemCardId(itemId, targetCardId).subscribe();
     }
   }
@@ -120,7 +213,7 @@ saveEditable(value){
 
  /**
   * FInd cards by Board's Id
-  * @param boardId 
+  * @param boardId
   */
   getCardsByBoardId(boardId:string){
     this.cardSvc.getCardsByBoardId(boardId).subscribe(cardList => {this.cards = cardList; console.log('cards: ', this.cards)},
@@ -143,10 +236,20 @@ saveEditable(value){
   }
 
 /**
+ * Archives an item to the database.
+ */
+private ArchiveItem(): void{
+  // The this.anItem is set at openItem() when modal dialog opens.
+  this.itemSvc.archiveItem(this.anItem.item_Id);
+  this.itemDlgIsOpen = false;
+  this.card.items.splice(this.index, 1);
+}
+
+/**
  * Delete card by id
- * @param card_id 
- * @param name 
- * @param i 
+ * @param card_id
+ * @param name
+ * @param i
  */
 deleteCard(card_id: string, name: string, i: number){
   this.deleteNow = false;
@@ -170,15 +273,14 @@ deleteCard(card_id: string, name: string, i: number){
 }
   /**
    * Add new Item to DB
-   * @param form 
-   * @param card 
+   * @param form
+   * @param card
    */
   onSubmit(form:any, card:Card):void{
     event.preventDefault;
-
-    this.item = <Item>{title: form.value["title"], description: "", card_Id: form.value["card_Id"], owner_Id: "d705fa4d-23cc-46ca-8a23-e7257a72bca4", modified_By_Id: "d705fa4d-23cc-46ca-8a23-e7257a72bca4", status_Id: 1};
+    this.anItem = <Item>{title: form.value["title"], description: "", card_Id: form.value["card_Id"], owner_Id: "d705fa4d-23cc-46ca-8a23-e7257a72bca4", modified_By_Id: "d705fa4d-23cc-46ca-8a23-e7257a72bca4", status_Id: 1};
    // create item. List of items for card is returned .
-    this.itemSvc.createItemForCard(this.item)
+    this.itemSvc.createItemForCard(this.anItem)
                                  .map(data => this.items = data)
                                  .subscribe(data => {card.items.push(data[data.length - 1])},   // add the new item to card's items
                                  err => this.errorMessage = <any>err);
@@ -199,20 +301,9 @@ deleteCard(card_id: string, name: string, i: number){
 
   }
 
-/**
- * Opens the item dialog
- * @param itemId  integer
- */
-openItem(item:Item):void{
-  this.itemDlgIsOpen = true;
-  this.itemDlgTitle = item.title;
-  this.item = item;
-  console.log("dlg: ", item);
-}
-
   /**
    * Opens add new item box
-   * @param itemId 
+   * @param itemId
    */
   toggleNewItem(itemId: number){
     this.hideme[itemId] = !this.hideme[itemId];
@@ -220,7 +311,7 @@ openItem(item:Item):void{
 
   /**
    * Opens edit card box
-   * @param i string 
+   * @param i string
    */
   toggleEditTitle(i: string){
     this.hideme[i] = !this.hideme[i];

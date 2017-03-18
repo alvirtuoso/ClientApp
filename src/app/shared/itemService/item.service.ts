@@ -43,7 +43,7 @@ constructor(private request: Http, private global: Global) {
     updateRequest(item: Item): Observable<Item>{
         let headers      = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
         let options       = new RequestOptions({ headers: headers });
-
+        console.log('item.updateRequest', item);
         return this.request.put(`${this.apiUrl}/edit`, item, options)
                         .do( res => console.log('ItemService updateRequest HTTP response:', res))
                          .map((res:Response) => res.json())
@@ -59,6 +59,16 @@ constructor(private request: Http, private global: Global) {
                     .map((res: Response) => res)
                     .catch(this.handleError);
     }
+    updateItemIdInMedia(item_id: string, media_id: string){
+               let headers    = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        let options    = new RequestOptions({ headers: headers });
+        let params = "item_id=" + item_id + "&media_id=" + media_id;
+        return this.request.put(`${this.apiUrl}/updateItemId/`, params, options)
+                    .do(res => console.log('ItemSvc.updateItemIdInMedia: ', res))
+                    .map((res: Response) => res)
+                    .catch(this.handleError);
+    }
+
     createItemForCard(item: Item): Observable<Item[]>{
         let headers    = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
         let options    = new RequestOptions({ headers: headers });
@@ -67,6 +77,14 @@ constructor(private request: Http, private global: Global) {
                         .do( res => console.log('item.service.createItemForCard() HTTP response:', res))
                          .map((res:Response) => res.json())
                          .catch(this.handleError);
+    }
+
+    archiveItem(item_id: string){
+        let apiUrl = `${this.global.apiItemUrl}/archive/${item_id}`;
+        this.request.delete(apiUrl)
+        .do(res => console.log('itemSvc archiveItem:', apiUrl))
+        .catch(this.handleError)
+        .subscribe(res => console.log(res));
     }
 
 }

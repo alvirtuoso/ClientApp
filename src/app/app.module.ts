@@ -23,9 +23,8 @@ import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import {DragulaModule, DragulaService} from 'ng2-dragula/ng2-dragula';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { QuillModule } from 'ngx-quill';
-
-// import {SliderModule} from 'primeng/primeng';
-
+import { MyDatePickerModule } from 'mydatepicker';
+import { Ng2UploaderModule } from 'ng2-uploader';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { NavComponent } from './nav/nav.component';
@@ -36,6 +35,8 @@ import { BoardComponent } from './board/board.component';
 
 import { Global } from './shared/global';
 import { ItemComponent } from './item/item.component';
+import { UploadComponent } from './upload/upload.component';
+import { TestComponent } from './test/test.component';
 
 // This projects modules
 import { AuthModule } from './+auth/auth.module';
@@ -43,6 +44,8 @@ import { AuthGuard } from './+auth/auth-guard.service';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { DebounceDirective } from './debounce/debounce.directive';
+
 
 // Must export the config
 export const firebaseConfig = {
@@ -72,8 +75,9 @@ const firebaseAuthConfig = {
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     DragulaModule,
     QuillModule,
-
+    MyDatePickerModule,
     AuthModule,
+    Ng2UploaderModule,
     routing
   ],
   declarations: [
@@ -90,7 +94,10 @@ const firebaseAuthConfig = {
     // authComponents,
     UserProfileComponent,
     DialogComponent,
-    NavigationComponent
+    NavigationComponent,
+    DebounceDirective,
+    UploadComponent,
+    TestComponent
 ],
   providers: [
     AlertService,

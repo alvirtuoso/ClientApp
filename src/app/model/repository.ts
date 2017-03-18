@@ -19,8 +19,8 @@ export class Repository {
     }
 
     handleError(error: Response) {
-     console.error('RestAPI error: ', error);
-     return Observable.throw('Server error:');
+     console.error('RestAPI error: ', error.toString());
+     return Observable.throw(error);
   }
 
 }

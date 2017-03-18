@@ -5,21 +5,28 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost, with sourcemaps",
+            "url": "http://localhost:3000",
+            "sourceMaps": true,
+            "webRoot": "${workspaceRoot}",
+            "userDataDir": "${workspaceRoot}/.vscode/chrome"
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceRoot}/server",
-            "cwd": "${workspaceRoot}",
-            "outFiles": [],
-            "sourceMaps": true
+            "outFiles": []
         },
         {
             "type": "node",
             "request": "attach",
             "name": "Attach to Process",
+            "address": "localhost",
             "port": 5858,
-            "outFiles": [],
-            "sourceMaps": true
+            "outFiles": []
         }
     ]
 }
